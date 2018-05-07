@@ -1,4 +1,5 @@
-# Battle Boats
+# Battle Boats  [![Build Status](https://travis-ci.org/Thomascountz/battle_boats.svg?branch=master)](https://travis-ci.org/Thomascountz/battle_boats) [![Maintainability](https://api.codeclimate.com/v1/badges/f9fb2b053e6bad40b13e/maintainability)](https://codeclimate.com/github/Thomascountz/battle_boats/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f9fb2b053e6bad40b13e/test_coverage)](https://codeclimate.com/github/Thomascountz/battle_boats/test_coverage)
+
 
 Battle Boats is a ruby library implementation of [Battleship](https://en.wikipedia.org/wiki/Battleship_%28game%29)!
 
