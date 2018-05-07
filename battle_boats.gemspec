@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Ruby gem implementation of the game, Battleship}
   spec.description   = %q{Battleship is a two-player guessing game. More details can be found here: https://en.wikipedia.org/wiki/Battleship_(game)}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://www.github.com/thomascountz/battle_boats"
   spec.license       = "MIT"
 
   if spec.respond_to?(:metadata)
