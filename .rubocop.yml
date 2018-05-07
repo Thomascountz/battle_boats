@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - 'spec/*'
     - 'Gemfile'
+    - 'Rakefile'
+    - '*.gemspec'
 
 Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
