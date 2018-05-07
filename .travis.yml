@@ -1,10 +1,7 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=3c6c7efa6e3f57e119b46d61bd28b40601f54a500000dd61495e8e5e435a6a4e
-sudo: false
 language: ruby
 rvm:
   - 2.4.1
+sudo: false
 before_install: gem install bundler -v 1.16.1
 install: bundle install
 before_script:
