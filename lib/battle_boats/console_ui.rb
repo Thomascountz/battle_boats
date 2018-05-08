@@ -1,5 +1,6 @@
 module BattleBoats
   class ConsoleUI
+
     def initialize(output: $stdout)
       @output = output
     end
@@ -11,5 +12,6 @@ module BattleBoats
     private
 
     attr_reader :output
+
   end
 end
