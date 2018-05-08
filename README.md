@@ -20,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+Enter
+
+```
+$ battle_boats
+```
+
+into the terminal. You should see a welcome message:
+
+```
+Welcome to Battle Boats!
+```
 
 ## Development
 
