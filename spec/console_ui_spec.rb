@@ -1,6 +1,6 @@
 require 'battle_boats/console_ui'
 
-RSpec.describe ConsoleUI do
+RSpec.describe BattleBoats::ConsoleUI do
 
   let(:output) { StringIO.new }
 
