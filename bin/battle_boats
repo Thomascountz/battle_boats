@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'battle_boats'
+
+console_ui = BattleBoats::ConsoleUI.new
+console_ui.greet
