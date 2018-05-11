@@ -448,9 +448,6 @@ Layout/InitialIndentation:
     Checks the indentation of the first non-blank non-comment line in a file.
   Enabled: false
 
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines
-
 # Lint
 
 Lint/AmbiguousOperator:
@@ -608,3 +605,5 @@ Performance/StringReplacement:
                   you are deleting characters.
   Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringgsub-vs-stringtr-code'
   Enabled: false
+
+
