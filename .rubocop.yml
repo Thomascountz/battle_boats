@@ -1,6 +1,6 @@
 AllCops:
   Exclude:
-    - 'spec/*'
+    - 'spec/**/**'
     - 'Gemfile'
     - 'Rakefile'
     - '*.gemspec'

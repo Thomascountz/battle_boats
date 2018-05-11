@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    battle_boats (0.0.1)
+    battle_boats (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -52,8 +52,8 @@ DEPENDENCIES
   bundler (~> 1.16)
   rake (~> 10.0)
   rspec (~> 3.0)
-  rubocop
-  simplecov
+  rubocop (~> 0.42)
+  simplecov (~> 0.16)
 
 BUNDLED WITH
    1.16.1
