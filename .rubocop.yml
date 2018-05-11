@@ -1,6 +1,6 @@
 AllCops:
   Exclude:
-    - 'spec/*'
+    - 'spec/**/**'
     - 'Gemfile'
     - 'Rakefile'
     - '*.gemspec'
@@ -447,9 +447,6 @@ Layout/InitialIndentation:
   Description: >-
     Checks the indentation of the first non-blank non-comment line in a file.
   Enabled: false
-
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines
 
 # Lint
 
