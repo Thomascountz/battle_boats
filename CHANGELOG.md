@@ -1,3 +1,9 @@
+# 0.0.4
+### New Features
+- Error messages for bad input
+- Prompt will ask again for input if input is invalid
+- Game loops for more than one strike
+
 # 0.0.3
 ### New Features
 - Can fire at an empty board and "miss" a target
