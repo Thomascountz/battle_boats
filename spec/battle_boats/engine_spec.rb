@@ -11,7 +11,7 @@ RSpec.describe BattleBoats::Engine do
 
   describe '#start' do
     context 'when the row and column input is valid' do
-      it 'starts the game' do
+      it 'plays the game until it is over' do
         row = "row"
         column = "column"
         status_report = "STATUS REPORT"
