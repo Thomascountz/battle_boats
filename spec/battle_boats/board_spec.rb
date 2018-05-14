@@ -21,11 +21,94 @@ RSpec.describe BattleBoats::Board do
         it 'it strikes the cell and updates the status report' do
           row = 1
           column = 1
-          board.strike_position(row: row, column: column)
+
+          result = board.strike_position(row: row, column: column)
+
+          expect(result).to eq true
           expect(board.play_area[row][column]).to eq 'X'
           expect(board.status_report.downcase).to include 'miss'
         end
       end
+
+      context 'when the cell has already been hit' do
+        it 'updates the error messages to include an "already hit" statement' do
+          row = 1
+          column = 1
+
+          board.strike_position(row: row, column: column)
+          result = board.strike_position(row: row, column: column)
+
+          expect(result).to eq false
+          expect(board.error_messages).to include('That position has already been hit')
+        end
+      end
+    end
+
+    context 'when the row is not a valid row in the play area' do
+      it 'updates the error messages to include an "invalid row" statement' do
+        row = 10
+        column = 0
+
+        result = board.strike_position(row: row, column: column)
+
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected row is invalid')
+      end
+    end
+
+    context 'when the row is not a number between 0 and 9' do
+      it 'updates the error messages to include an "invalid row" statement' do
+        row = "hello"
+        column = 0
+
+        result = board.strike_position(row: row, column: column)
+
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected row is invalid')
+      end
+    end
+
+    context 'when the column is not a valid row in the play area' do
+      it 'updates the error messages to include an "invalid column" statement' do
+        row = 0
+        column = 10
+
+        result = board.strike_position(row: row, column: column)
+
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected column is invalid')
+      end
+    end
+
+    context 'when the column is not a number between 0 and 9' do
+      it 'updates the error messages to include an "invalid column" statement' do
+        row = 0
+        column = "hello"
+
+        result = board.strike_position(row: row, column: column)
+
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected column is invalid')
+      end
+    end
+
+    context 'when both the row and column are not valid' do
+      it 'updates the error messages to include an "invalid row" and "invalid column" statement' do
+        row = 420
+        column = "hello"
+
+        result = board.strike_position(row: row, column: column)
+
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected column is invalid')
+        expect(board.error_messages).to include('The selected row is invalid')
+      end
+    end
+  end
+
+  describe '#game_over?' do
+    it 'returns false' do
+      expect(board.game_over?).to eq false
     end
   end
 end

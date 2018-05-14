@@ -27,6 +27,10 @@ module BattleBoats
       output.puts status_report
     end
 
+    def display_errors(errors)
+      output.puts errors
+    end
+
     private
 
     attr_reader :output, :input
