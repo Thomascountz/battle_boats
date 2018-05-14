@@ -27,5 +27,13 @@ RSpec.describe BattleBoats::Board do
         end
       end
     end
+    context 'when the row is not a valid row in the play area' do
+      it 'updates the error messages to include an "invalid row" statement' do
+        row = 10
+        column = 0
+        board.strike_position(row: row, column: column)
+        expect(board.error_messages).to include('The selected row is invalid')
+      end
+    end
   end
 end
