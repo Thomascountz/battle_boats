@@ -14,7 +14,10 @@ module BattleBoats
       interface.display_board(board)
       row = interface.get_row
       column = interface.get_column
-      board.strike_position(row: row, column: column)
+      until board.strike_position(row: row, column: column)
+        row = interface.get_row
+        column = interface.get_column
+      end
       status_report = board.status_report
       interface.display_status_report(status_report)
       interface.display_board(board)
