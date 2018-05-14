@@ -65,4 +65,10 @@ RSpec.describe BattleBoats::Board do
       end
     end
   end
+
+  describe '#game_over?' do
+    it 'returns false' do
+      expect(board.game_over?).to eq false
+    end
+  end
 end

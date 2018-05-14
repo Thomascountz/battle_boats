@@ -26,6 +26,10 @@ module BattleBoats
       end
     end
 
+    def game_over?
+      false
+    end
+
     private
 
     def validate_position(row:, column:)

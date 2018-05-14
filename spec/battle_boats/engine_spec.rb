@@ -17,13 +17,14 @@ RSpec.describe BattleBoats::Engine do
         status_report = "STATUS REPORT"
 
         expect(console_ui).to receive(:greet).ordered
+        expect(board).to receive(:game_over?).and_return(false)
         expect(console_ui).to receive(:display_board).with(board).ordered
         expect(console_ui).to receive(:get_row).and_return(row).ordered
         expect(console_ui).to receive(:get_column).and_return(column).ordered
         expect(board).to receive(:strike_position).with(row: row, column: column).and_return(true).ordered
         expect(board).to receive(:status_report).and_return(status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(status_report).ordered
-        expect(console_ui).to receive(:display_board).with(board).ordered
+        expect(board).to receive(:game_over?).and_return(true)
 
         engine.start
       end
@@ -37,6 +38,7 @@ RSpec.describe BattleBoats::Engine do
         status_report = "STATUS REPORT"
 
         expect(console_ui).to receive(:greet).ordered
+        expect(board).to receive(:game_over?).and_return(false)
         expect(console_ui).to receive(:display_board).with(board).ordered
         expect(console_ui).to receive(:get_row).and_return(invalid_row).ordered
         expect(console_ui).to receive(:get_column).and_return(column).ordered
@@ -51,7 +53,7 @@ RSpec.describe BattleBoats::Engine do
         expect(board).to receive(:strike_position).with(row: row, column: column).and_return(true).ordered
         expect(board).to receive(:status_report).and_return(status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(status_report).ordered
-        expect(console_ui).to receive(:display_board).with(board).ordered
+        expect(board).to receive(:game_over?).and_return(true)
 
         engine.start
       end
