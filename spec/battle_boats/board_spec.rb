@@ -31,7 +31,8 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid row" statement' do
         row = 10
         column = 0
-        board.strike_position(row: row, column: column)
+        result = board.strike_position(row: row, column: column)
+        expect(result).to eq false
         expect(board.error_messages).to include('The selected row is invalid')
       end
     end
@@ -39,7 +40,8 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid row" statement' do
         row = "hello"
         column = 0
-        board.strike_position(row: row, column: column)
+        result = board.strike_position(row: row, column: column)
+        expect(result).to eq false
         expect(board.error_messages).to include('The selected row is invalid')
       end
     end
