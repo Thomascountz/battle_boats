@@ -16,7 +16,7 @@ module BattleBoats
     end
 
     def strike_position(row:, column:)
-      validate_position(row: row)
+      validate_position(row: row, column: column)
       if @error_messages.empty?
         @play_area[row.to_i][column.to_i] = "X"
         @status_report = "Miss!"
@@ -28,10 +28,13 @@ module BattleBoats
 
     private
 
-    def validate_position(row:)
+    def validate_position(row:, column:)
       @error_messages.clear
       if !between_zero_and_nine?(row)
         @error_messages << "The selected row is invalid"
+      end
+      if !between_zero_and_nine?(column)
+        @error_messages << "The selected column is invalid"
       end
     end
 

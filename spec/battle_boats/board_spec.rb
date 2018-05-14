@@ -46,5 +46,23 @@ RSpec.describe BattleBoats::Board do
         expect(board.error_messages).to include('The selected row is invalid')
       end
     end
+    context 'when the column is not a valid row in the play area' do
+      it 'updates the error messages to include an "invalid column" statement' do
+        row = 0
+        column = 10
+        result = board.strike_position(row: row, column: column)
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected column is invalid')
+      end
+    end
+    context 'when the column is not a number between 0 and 9' do
+      it 'updates the error messages to include an "invalid column" statement' do
+        row = 0
+        column = "hello"
+        result = board.strike_position(row: row, column: column)
+        expect(result).to eq false
+        expect(board.error_messages).to include('The selected column is invalid')
+      end
+    end
   end
 end
