@@ -20,8 +20,7 @@ module BattleBoats
           row = interface.get_row
           column = interface.get_column
         end
-        status_report = board.status_report
-        interface.display_status_report(status_report)
+        interface.display_status_report(board.status_report)
       end
     end
 
