@@ -15,6 +15,7 @@ module BattleBoats
       row = interface.get_row
       column = interface.get_column
       until board.strike_position(row: row, column: column)
+        interface.display_errors(board.error_messages)
         row = interface.get_row
         column = interface.get_column
       end

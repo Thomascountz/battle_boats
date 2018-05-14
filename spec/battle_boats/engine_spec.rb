@@ -38,15 +38,17 @@ RSpec.describe BattleBoats::Engine do
 
         expect(console_ui).to receive(:greet).ordered
         expect(console_ui).to receive(:display_board).with(board).ordered
-
         expect(console_ui).to receive(:get_row).and_return(invalid_row).ordered
         expect(console_ui).to receive(:get_column).and_return(column).ordered
+
         expect(board).to receive(:strike_position).with(row: invalid_row, column: column).and_return(false).ordered
+        expect(board).to receive(:error_messages).and_return(error_message).ordered
+        expect(console_ui).to receive(:display_errors).with(error_message).ordered
 
         expect(console_ui).to receive(:get_row).and_return(row).ordered
         expect(console_ui).to receive(:get_column).and_return(column).ordered
-        expect(board).to receive(:strike_position).with(row: row, column: column).and_return(true).ordered
 
+        expect(board).to receive(:strike_position).with(row: row, column: column).and_return(true).ordered
         expect(board).to receive(:status_report).and_return(status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(status_report).ordered
         expect(console_ui).to receive(:display_board).with(board).ordered
