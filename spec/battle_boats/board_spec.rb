@@ -27,6 +27,18 @@ RSpec.describe BattleBoats::Board do
           expect(board.status_report.downcase).to include 'miss'
         end
       end
+      context 'when the cell has already been hit' do
+        it 'updates the error messages to include an "already hit" statement' do
+          row = 1
+          column = 1
+
+          board.strike_position(row: row, column: column)
+          result = board.strike_position(row: row, column: column)
+
+          expect(result).to eq false
+          expect(board.error_messages).to include('That position has already been hit')
+        end
+      end
     end
     context 'when the row is not a valid row in the play area' do
       it 'updates the error messages to include an "invalid row" statement' do

@@ -40,6 +40,11 @@ module BattleBoats
       if !between_zero_and_nine?(column)
         @error_messages << "The selected column is invalid"
       end
+      if @error_messages.empty?
+        if !position_available?(row: row, column: column)
+         @error_messages << "That position has already been hit"
+        end
+      end
     end
 
     def between_zero_and_nine?(input)
@@ -48,6 +53,10 @@ module BattleBoats
       else
         false
       end
+    end
+
+    def position_available?(row:, column:)
+      @play_area[row.to_i][column.to_i] != 'X'
     end
   end
 end
