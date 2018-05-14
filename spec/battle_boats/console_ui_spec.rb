@@ -60,5 +60,15 @@ RSpec.describe BattleBoats::ConsoleUI do
       expect(output.string).to include(status_report)
     end
   end
+
+  describe '#display_errors' do
+    it 'displays the given errors to the output' do
+      errors = ['error_01', 'error_02']
+
+      console_ui.display_errors(errors)
+
+      expect(output.string).to include('error_01', 'error_02')
+    end
+  end
 end
 
