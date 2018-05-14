@@ -29,6 +29,7 @@ RSpec.describe BattleBoats::Engine do
         engine.start
       end
     end
+
     context 'when the row and column input is invalid' do
       it 'prompts the user to re-enter a row and column' do
         row = "row"
