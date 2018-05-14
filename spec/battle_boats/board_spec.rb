@@ -21,7 +21,8 @@ RSpec.describe BattleBoats::Board do
         it 'it strikes the cell and updates the status report' do
           row = 1
           column = 1
-          board.strike_position(row: row, column: column)
+          result = board.strike_position(row: row, column: column)
+          expect(result).to eq true
           expect(board.play_area[row][column]).to eq 'X'
           expect(board.status_report.downcase).to include 'miss'
         end

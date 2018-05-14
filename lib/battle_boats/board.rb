@@ -19,6 +19,7 @@ module BattleBoats
       if validate_position(row: row)
         @play_area[row.to_i][column.to_i] = "X"
         @status_report = "Miss!"
+        true
       else
         false
       end
