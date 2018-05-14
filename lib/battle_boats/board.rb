@@ -42,7 +42,7 @@ module BattleBoats
       end
       if @error_messages.empty?
         if !position_available?(row: row, column: column)
-         @error_messages << "That position has already been hit"
+          @error_messages << "That position has already been hit"
         end
       end
     end
@@ -56,7 +56,7 @@ module BattleBoats
     end
 
     def position_available?(row:, column:)
-      @play_area[row.to_i][column.to_i] != 'X'
+      @play_area[row.to_i][column.to_i] != "X"
     end
   end
 end
