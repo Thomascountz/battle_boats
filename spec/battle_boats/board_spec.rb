@@ -35,5 +35,13 @@ RSpec.describe BattleBoats::Board do
         expect(board.error_messages).to include('The selected row is invalid')
       end
     end
+    context 'when the row is not a number between 0 and 9' do
+      it 'updates the error messages to include an "invalid row" statement' do
+        row = "hello"
+        column = 0
+        board.strike_position(row: row, column: column)
+        expect(board.error_messages).to include('The selected row is invalid')
+      end
+    end
   end
 end

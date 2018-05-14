@@ -26,7 +26,7 @@ module BattleBoats
 
     def validate_position(row:)
       @error_messages.clear
-      if @play_area[row.to_i]
+      if row.to_s =~ /^[0-9]$/ && @play_area[row.to_i]
         return true
       else
         @error_messages << "The selected row is invalid"
