@@ -31,7 +31,7 @@ RSpec.describe BattleBoats::Board do
           result = board.strike_position(row: row, column: column)
 
           expect(result).to eq true
-          expect(board.play_area[row][column]).to be_hit
+          expect(board.cell_at(row: row, column: column)).to be_hit
           expect(board.status_report.downcase).to include 'miss'
         end
       end
