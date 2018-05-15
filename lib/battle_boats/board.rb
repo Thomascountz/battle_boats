@@ -1,15 +1,17 @@
+require "battle_boats/cell"
+
 module BattleBoats
   class Board
     attr_reader :play_area, :status_report, :error_messages
 
-    def initialize(cell: nil)
+    def initialize
       @status_report = ""
       @error_messages = []
       @play_area = []
       10.times do
         row = []
         10.times do
-          row << cell
+          row << BattleBoats::Cell.new
         end
         @play_area << row
       end
