@@ -20,7 +20,7 @@ module BattleBoats
     def strike_position(row:, column:)
       validate_position(row: row, column: column)
       if @error_messages.empty?
-        @play_area[row.to_i][column.to_i].strike
+        cell_at(row: row, column: column).strike
         @status_report = "Miss!"
         true
       else
@@ -66,7 +66,7 @@ module BattleBoats
     end
 
     def position_available?(row:, column:)
-      !@play_area[row.to_i][column.to_i].hit?
+      !cell_at(row: row, column: column).hit?
     end
   end
 end
