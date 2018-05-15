@@ -13,11 +13,11 @@ RSpec.describe BattleBoats::Board do
         expect(board.play_area.first.length).to be 10
         expect(board.play_area.flatten.length).to be 100
       end
-    end
-    it 'is made up of unique Cell objects' do
-      expect(board.play_area.flatten).to_not be_empty
-      expect(board.play_area.flatten).to all be_instance_of BattleBoats::Cell
-      expect(board.play_area.flatten.length).to eq(board.play_area.flatten.uniq.length)
+      it 'is made up of unique Cell objects' do
+        expect(board.play_area.flatten).to_not be_empty
+        expect(board.play_area.flatten).to all be_instance_of BattleBoats::Cell
+        expect(board.play_area.flatten.length).to eq(board.play_area.flatten.uniq.length)
+      end
     end
   end
 
