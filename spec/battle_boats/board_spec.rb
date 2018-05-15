@@ -117,4 +117,23 @@ RSpec.describe BattleBoats::Board do
       expect(board.game_over?).to eq false
     end
   end
+
+  describe '#cell_at' do
+    context 'when the row and column are within the play_area' do
+      it 'returns the cell located at that row and column' do
+        row = 3
+        column = 4
+
+        expect(board.cell_at(row: row, column: column)).to be board.play_area[row][column]
+      end
+    end
+    context 'when the row and column are not within the play_area' do
+      it 'returns nil' do
+        row = 8008
+        column = 4
+
+        expect(board.cell_at(row: row, column: column)).to eq nil
+      end
+    end
+  end
 end
