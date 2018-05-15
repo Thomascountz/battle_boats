@@ -32,6 +32,14 @@ module BattleBoats
       false
     end
 
+    def cell_at(row:, column:)
+      if @play_area[row.to_i]
+        @play_area[row.to_i][column.to_i]
+      else
+        nil
+      end
+    end
+
     private
 
     def validate_position(row:, column:)
