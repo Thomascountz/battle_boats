@@ -39,6 +39,32 @@ module BattleBoats
       end
     end
 
+    def place_ship_horizontally(row:, column:, ship:)
+      cells_to_occupy = []
+      ship.length.times do |i|
+        cell = cell_at(row: row, column: column + i)
+        if cell
+          cells_to_occupy << cell
+        end
+      end
+      cells_to_occupy.each do |cell|
+        cell.occupant = ship
+      end
+    end
+
+    def place_ship_vertically(row:, column:, ship:)
+      cells_to_occupy = []
+      ship.length.times do |i|
+        cell = cell_at(row: row - i, column: column)
+        if cell
+          cells_to_occupy << cell
+        end
+      end
+      cells_to_occupy.each do |cell|
+        cell.occupant = ship
+      end
+    end
+
     private
 
     def validate_position(row:, column:)

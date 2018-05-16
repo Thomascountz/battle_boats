@@ -1,5 +1,6 @@
 require 'battle_boats/board'
 require 'battle_boats/cell'
+require 'battle_boats/ship'
 
 RSpec.describe BattleBoats::Board do
 
@@ -133,6 +134,37 @@ RSpec.describe BattleBoats::Board do
         column = 4
 
         expect(board.cell_at(row: row, column: column)).to eq nil
+      end
+    end
+  end
+
+  describe '#place_ship_horizontally' do
+    context 'when the given ship fits at the given position' do
+      it 'places the ship on the board, moving from left to right, based on the ship length' do
+        ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
+        row = 0
+        column = 0
+
+        board. place_ship_horizontally(row: row, column: column, ship: ship)
+
+        expect(board.cell_at(row: row, column: column).occupant).to be ship
+        expect(board.cell_at(row: row, column: column + 1).occupant).to be ship
+        expect(board.cell_at(row: row, column: column + 2).occupant).to be ship
+      end
+    end
+  end
+  describe '#place_ship_vertically' do
+    context 'when the given ship fits at the given position' do
+      it 'places the ship on the board, bottom to top, based on the ship length' do
+        ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
+        row = 9
+        column = 9
+
+        board. place_ship_vertically(row: row, column: column, ship: ship)
+
+        expect(board.cell_at(row: row, column: column).occupant).to be ship
+        expect(board.cell_at(row: row - 1, column: column).occupant).to be ship
+        expect(board.cell_at(row: row - 2, column: column).occupant).to be ship
       end
     end
   end
