@@ -17,4 +17,12 @@ RSpec.describe BattleBoats::Ship do
       expect(ship.length).to eq length
     end
   end
+  describe '#symbol' do
+    it 'returns a symbol of a ship' do
+      symbol = "P"
+      ship = BattleBoats::Ship.new(name: nil, length: nil, symbol: symbol)
+
+      expect(ship.symbol).to eq symbol
+    end
+  end
 end
