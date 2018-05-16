@@ -40,8 +40,13 @@ module BattleBoats
     end
 
     def place_ship_horizontally(row:, column:, ship:)
-      ship.length.times do |offset|
-        cell_at(row: row, column: column + offset).occupant = ship
+      cells_to_occupy = Array.new(ship.length) do |offset|
+        cell_at(row: row, column: column + offset)
+      end
+      if cells_to_occupy.none?(&:nil?)
+        place_ship_in_cells(cells: cells_to_occupy, ship: ship)
+      else
+        return false
       end
     end
 
@@ -78,6 +83,12 @@ module BattleBoats
 
     def position_available?(row:, column:)
       !cell_at(row: row, column: column).hit?
+    end
+
+    def place_ship_in_cells(cells:, ship:)
+      cells.each do |cell|
+        cell.occupant = ship
+      end
     end
   end
 end

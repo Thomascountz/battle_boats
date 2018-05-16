@@ -152,6 +152,18 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(row: row, column: column + 2).occupant).to be ship
       end
     end
+    context 'when the given ship does not fit at the given position' do
+      it 'returns false' do
+        ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
+        row = 0
+        column = 9
+
+        result = board.place_ship_horizontally(row: row, column: column, ship: ship)
+
+        expect(result).to eq false
+        expect(board.cell_at(row: row, column: column)).to_not be ship
+      end
+    end
   end
   describe '#place_ship_vertically' do
     context 'when the given ship fits at the given position' do
@@ -165,6 +177,10 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(row: row, column: column).occupant).to be ship
         expect(board.cell_at(row: row - 1, column: column).occupant).to be ship
         expect(board.cell_at(row: row - 2, column: column).occupant).to be ship
+      end
+    end
+    context 'when the given ship does not fit at the given position' do
+      it 'returns false' do
       end
     end
   end
