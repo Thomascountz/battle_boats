@@ -47,7 +47,7 @@ RSpec.describe BattleBoats::Cell do
 
   describe '#occupant' do
     context 'when initialized' do
-      it 'returns nil' do
+      it 'defaults to return nil' do
         cell = BattleBoats::Cell.new
 
         expect(cell.occupant).to eq nil

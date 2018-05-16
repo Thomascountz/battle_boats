@@ -1,6 +1,6 @@
 module BattleBoats
   class Cell
-    attr_reader :occupant
+    attr_accessor :occupant
 
     def initialize
       @hit = false
