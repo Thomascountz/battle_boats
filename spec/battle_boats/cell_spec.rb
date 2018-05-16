@@ -41,8 +41,10 @@ RSpec.describe BattleBoats::Cell do
     context 'when a cell has been struck' do
       it "returns the string representation of a hit cell" do
         cell = BattleBoats::Cell.new
+        symbol = "G"
+        cell.occupant = BattleBoats::Ship.new(name: nil, length: nil, symbol: symbol)
         cell.strike
-        expect(cell.to_s).to eq "X"
+        expect(cell.to_s).to eq symbol
       end
     end
   end
