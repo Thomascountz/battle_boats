@@ -1,4 +1,5 @@
 require 'battle_boats/cell'
+require 'battle_boats/ship'
 
 RSpec.describe BattleBoats::Cell do
 
@@ -71,6 +72,15 @@ RSpec.describe BattleBoats::Cell do
           cell.strike
 
           expect(cell.status_report.downcase).to include("hit", "nothing")
+        end
+      end
+      context 'with an occupant' do
+        it 'returns a "hit" message' do
+          cell = BattleBoats::Cell.new
+          cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 1)
+          cell.strike
+
+          expect(cell.status_report.downcase).to include("hit", "my", "ship")
         end
       end
     end
