@@ -35,8 +35,6 @@ module BattleBoats
     def cell_at(row:, column:)
       if @play_area[row.to_i]
         @play_area[row.to_i][column.to_i]
-      else
-        nil
       end
     end
 
