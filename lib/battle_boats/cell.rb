@@ -1,7 +1,10 @@
 module BattleBoats
   class Cell
+    attr_reader :occupant
+
     def initialize
       @hit = false
+      @occupant = nil
     end
 
     def hit?
