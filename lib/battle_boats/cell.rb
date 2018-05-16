@@ -21,7 +21,7 @@ module BattleBoats
 
     def to_s
       if hit?
-        occupant.symbol 
+        occupant.symbol
       else
         "."
       end

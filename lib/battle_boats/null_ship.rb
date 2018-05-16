@@ -5,7 +5,7 @@ module BattleBoats
     def initialize(name: nil, length: nil, symbol: nil)
       @name = "nothing"
       @length = 1
-      @symbol = 'X'
+      @symbol = "X"
     end
   end
 end
