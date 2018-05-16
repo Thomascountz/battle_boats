@@ -24,5 +24,13 @@ module BattleBoats
         "."
       end
     end
+
+    def status_report
+      if hit?
+        "You hit nothing."
+      else
+        "All Clear!"
+      end
+    end
   end
 end

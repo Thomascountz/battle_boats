@@ -32,7 +32,7 @@ RSpec.describe BattleBoats::Board do
 
           expect(result).to eq true
           expect(board.cell_at(row: row, column: column)).to be_hit
-          expect(board.status_report.downcase).to include 'miss'
+          expect(board.status_report.downcase).to include('hit', 'nothing')
         end
       end
 

@@ -54,4 +54,25 @@ RSpec.describe BattleBoats::Cell do
       end
     end
   end
+
+  describe '#status_report' do
+    context 'when unhit' do
+      it 'returns an "all clear" message' do
+        cell = BattleBoats::Cell.new
+
+        expect(cell.status_report.downcase).to include("clear")
+      end
+    end
+    context 'when struck' do
+      context 'without an occupant' do
+        it 'returns a "miss" message' do
+          cell = BattleBoats::Cell.new
+          cell.occupant = nil
+          cell.strike
+
+          expect(cell.status_report.downcase).to include("hit", "nothing")
+        end
+      end
+    end
+  end
 end

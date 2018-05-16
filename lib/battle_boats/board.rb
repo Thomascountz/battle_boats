@@ -20,8 +20,9 @@ module BattleBoats
     def strike_position(row:, column:)
       validate_position(row: row, column: column)
       if @error_messages.empty?
-        cell_at(row: row, column: column).strike
-        @status_report = "Miss!"
+        cell = cell_at(row: row, column: column)
+        cell.strike
+        @status_report = cell.status_report
         true
       else
         false
