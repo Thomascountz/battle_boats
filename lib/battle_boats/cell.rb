@@ -1,10 +1,12 @@
+require_relative "null_ship"
+
 module BattleBoats
   class Cell
     attr_accessor :occupant
 
     def initialize
       @hit = false
-      @occupant = nil
+      @occupant = BattleBoats::NullShip.new
     end
 
     def hit?
@@ -27,11 +29,7 @@ module BattleBoats
 
     def status_report
       if hit?
-        if occupant
-          "You hit my #{occupant.name}!"
-        else
-          "You hit nothing"
-        end
+        "You hit my #{occupant.name}!"
       else
         "All Clear!"
       end
