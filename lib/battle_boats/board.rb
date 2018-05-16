@@ -40,28 +40,14 @@ module BattleBoats
     end
 
     def place_ship_horizontally(row:, column:, ship:)
-      cells_to_occupy = []
-      ship.length.times do |i|
-        cell = cell_at(row: row, column: column + i)
-        if cell
-          cells_to_occupy << cell
-        end
-      end
-      cells_to_occupy.each do |cell|
-        cell.occupant = ship
+      ship.length.times do |offset|
+        cell_at(row: row, column: column + offset).occupant = ship
       end
     end
 
     def place_ship_vertically(row:, column:, ship:)
-      cells_to_occupy = []
-      ship.length.times do |i|
-        cell = cell_at(row: row - i, column: column)
-        if cell
-          cells_to_occupy << cell
-        end
-      end
-      cells_to_occupy.each do |cell|
-        cell.occupant = ship
+      ship.length.times do |offset|
+        cell_at(row: row - offset, column: column).occupant = ship
       end
     end
 
