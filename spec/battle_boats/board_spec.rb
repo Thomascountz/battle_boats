@@ -136,6 +136,22 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(row: row, column: column)).to eq nil
       end
     end
+    context 'when the row is negative' do
+      it 'returns nil' do
+        row = -1
+        column = 4
+
+        expect(board.cell_at(row: row, column: column)).to eq nil
+      end
+    end
+    context 'when the column is negative' do
+      it 'returns nil' do
+        row = 6
+        column = -1
+
+        expect(board.cell_at(row: row, column: column)).to eq nil
+      end
+    end
   end
 
   describe '#place_ship_horizontally' do
