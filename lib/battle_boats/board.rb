@@ -34,7 +34,7 @@ module BattleBoats
     end
 
     def cell_at(row:, column:)
-      if @play_area[row.to_i]
+      if @play_area[row.to_i] && row.to_i >= 0 && column.to_i >= 0
         @play_area[row.to_i][column.to_i]
       end
     end
@@ -43,6 +43,7 @@ module BattleBoats
       cells_to_occupy = Array.new(ship.length) do |offset|
         cell_at(row: row, column: column + offset)
       end
+
       if cells_to_occupy.none?(&:nil?)
         place_ship_in_cells(cells: cells_to_occupy, ship: ship)
       else
@@ -51,8 +52,14 @@ module BattleBoats
     end
 
     def place_ship_vertically(row:, column:, ship:)
-      ship.length.times do |offset|
-        cell_at(row: row - offset, column: column).occupant = ship
+      cells_to_occupy = Array.new(ship.length) do |offset|
+        cell_at(row: row - offset, column: column)
+      end
+
+      if cells_to_occupy.none?(&:nil?)
+        place_ship_in_cells(cells: cells_to_occupy, ship: ship)
+      else
+        return false
       end
     end
 

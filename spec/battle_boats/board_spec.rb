@@ -181,6 +181,14 @@ RSpec.describe BattleBoats::Board do
     end
     context 'when the given ship does not fit at the given position' do
       it 'returns false' do
+        ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
+        row = 0
+        column = 9
+
+        result = board.place_ship_vertically(row: row, column: column, ship: ship)
+
+        expect(result).to eq false
+        expect(board.cell_at(row: row, column: column)).to_not be ship
       end
     end
   end
