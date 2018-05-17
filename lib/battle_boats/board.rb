@@ -18,7 +18,7 @@ module BattleBoats
     end
 
     def strike_position(coordinate:)
-      validate_position(row: coordinate.row, column: coordinate.column)
+      validate_position(coordinate: coordinate)
       if @error_messages.empty?
         cell = cell_at(coordinate: coordinate)
         cell.strike
@@ -73,16 +73,16 @@ module BattleBoats
 
     private
 
-    def validate_position(row:, column:)
+    def validate_position(coordinate:)
       @error_messages.clear
-      if !between_zero_and_nine?(row)
+      if !between_zero_and_nine?(coordinate.row)
         @error_messages << "The selected row is invalid"
       end
-      if !between_zero_and_nine?(column)
+      if !between_zero_and_nine?(coordinate.column)
         @error_messages << "The selected column is invalid"
       end
       if @error_messages.empty?
-        if !position_available?(row: row, column: column)
+        if !position_available?(row: coordinate.row, column: coordinate.column)
           @error_messages << "That position has already been hit"
         end
       end
