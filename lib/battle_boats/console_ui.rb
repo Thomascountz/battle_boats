@@ -23,6 +23,10 @@ module BattleBoats
       input.gets.chomp
     end
 
+    def get_coordinate
+      raise NotImplementedError
+    end
+
     def display_status_report(status_report)
       output.puts status_report
     end

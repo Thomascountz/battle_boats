@@ -13,12 +13,10 @@ module BattleBoats
       interface.greet
       until board.game_over?
         interface.display_board(board)
-        row = interface.get_row
-        column = interface.get_column
-        until board.strike_position(row: row, column: column)
+        coordinate = interface.get_coordinate
+        until board.strike_position(coordinate: coordinate)
           interface.display_errors(board.error_messages)
-          row = interface.get_row
-          column = interface.get_column
+          coordinate = interface.get_coordinate
         end
         interface.display_status_report(board.status_report)
       end

@@ -17,7 +17,11 @@ module BattleBoats
       end
     end
 
-    def strike_position(row:, column:)
+    def strike_position(row: nil, column: nil, coordinate: nil)
+      if coordinate
+        row = coordinate.row
+        column = coordinate.column
+      end
       validate_position(row: row, column: column)
       if @error_messages.empty?
         cell = cell_at(row: row, column: column)
