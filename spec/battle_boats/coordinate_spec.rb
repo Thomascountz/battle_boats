@@ -25,22 +25,24 @@ RSpec.describe BattleBoats::Coordinate do
     it 'returns the coordinate above' do
       row = 9
       column = 1
+      offset = 2
       coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-      coordinate_above = coordinate.up
+      coordinate_above = coordinate.up(offset: offset)
 
-      expect(coordinate_above.row).to eq 8
+      expect(coordinate_above.row).to eq 7
     end
   end
   describe '#right' do
-    it 'returns the coordinate too the right' do
+    it 'returns the coordinate to the right' do
       row = 1
       column = 1
+      offset = 3
       coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-      coordinate_to_the_right = coordinate.right
+      coordinate_to_the_right = coordinate.right(offset: offset)
 
-      expect(coordinate_to_the_right.column).to eq 2
+      expect(coordinate_to_the_right.column).to eq 4
     end
   end
 end

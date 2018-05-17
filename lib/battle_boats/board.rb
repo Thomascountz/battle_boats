@@ -43,8 +43,7 @@ module BattleBoats
 
     def place_ship_horizontally(coordinate:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        coordinate = BattleBoats::Coordinate.new(row: coordinate.row, column: coordinate.column + offset)
-        cell_at(coordinate: coordinate)
+        cell_at(coordinate: coordinate.right(offset: offset))
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
@@ -58,8 +57,7 @@ module BattleBoats
 
     def place_ship_vertically(coordinate:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        coordinate = BattleBoats::Coordinate.new(row: coordinate.row - offset, column: coordinate.column)
-        cell_at(coordinate: coordinate)
+        cell_at(coordinate: coordinate.up(offset: offset))
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)

@@ -7,12 +7,12 @@ module BattleBoats
       @column = column
     end
 
-    def up
-      self.class.new(row: row - 1, column: column)
+    def up(offset: 1)
+      self.class.new(row: row - offset, column: column)
     end
 
-    def right
-      self.class.new(row: row, column: column + 1)
+    def right(offset: 1)
+      self.class.new(row: row, column: column + offset)
     end
   end
 end
