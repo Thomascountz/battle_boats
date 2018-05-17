@@ -32,4 +32,15 @@ RSpec.describe BattleBoats::Coordinate do
       expect(coordinate_above.row).to eq 8
     end
   end
+  describe '#right' do
+    it 'returns the coordinate too the right' do
+      row = 1
+      column = 1
+      coordinate = BattleBoats::Coordinate.new(row: row, column: column)
+
+      coordinate_to_the_right = coordinate.right
+
+      expect(coordinate_to_the_right.column).to eq 2
+    end
+  end
 end

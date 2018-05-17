@@ -10,5 +10,9 @@ module BattleBoats
     def up
       self.class.new(row: row - 1, column: column)
     end
+
+    def right
+      self.class.new(row: row, column: column + 1)
+    end
   end
 end
