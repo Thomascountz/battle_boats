@@ -25,27 +25,16 @@ RSpec.describe BattleBoats::ConsoleUI do
     end
   end
 
-  describe '#get_row' do
-    it 'returns input received from the player' do
-      input = StringIO.new("4\n")
+  describe '#get_coordinate' do
+    it 'returns a coordinate based on user input' do
+      input = StringIO.new("4\n3\n")
       console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
 
-      result = console_ui.get_row
+      result = console_ui.get_coordinate
 
-      expect(output.string).to include("row")
-      expect(result).to eq('4')
-    end
-  end
-
-  describe '#get_column' do
-    it 'returns input received from the player' do
-      input = StringIO.new("3\n")
-      console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
-
-      result = console_ui.get_column
-
-      expect(output.string).to include("column")
-      expect(result).to eq('3')
+      expect(output.string).to include("row", "column")
+      expect(result.row).to eq('4')
+      expect(result.column).to eq('3')
     end
   end
 
