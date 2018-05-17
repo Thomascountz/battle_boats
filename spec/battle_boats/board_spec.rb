@@ -174,7 +174,7 @@ RSpec.describe BattleBoats::Board do
         column = 0
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        board. place_ship_horizontally(row: row, column: column, ship: ship)
+        board.place_ship_horizontally(coordinate: coordinate, ship: ship)
 
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
@@ -188,7 +188,7 @@ RSpec.describe BattleBoats::Board do
         column = 9
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.place_ship_horizontally(row: row, column: column, ship: ship)
+        result = board.place_ship_horizontally(coordinate: coordinate, ship: ship)
 
         expect(result).to eq false
         expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship
@@ -202,9 +202,9 @@ RSpec.describe BattleBoats::Board do
         column = 0
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        board.place_ship_horizontally(row: row, column: column, ship: ship)
+        board.place_ship_horizontally(coordinate: coordinate, ship: ship)
 
-        result = board.place_ship_horizontally(row: row, column: column, ship: ship_2)
+        result = board.place_ship_horizontally(coordinate: coordinate, ship: ship_2)
 
         expect(result).to eq false
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
@@ -220,7 +220,7 @@ RSpec.describe BattleBoats::Board do
         column = 9
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        board. place_ship_vertically(row: row, column: column, ship: ship)
+        board. place_ship_vertically(coordinate: coordinate, ship: ship)
 
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
@@ -234,7 +234,7 @@ RSpec.describe BattleBoats::Board do
         column = 9
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.place_ship_vertically(row: row, column: column, ship: ship)
+        result = board.place_ship_vertically(coordinate: coordinate, ship: ship)
 
         expect(result).to eq false
         expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship
@@ -248,9 +248,9 @@ RSpec.describe BattleBoats::Board do
         column = 9
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        board.place_ship_vertically(row: row, column: column, ship: ship)
+        board.place_ship_vertically(coordinate: coordinate, ship: ship)
 
-        result = board.place_ship_vertically(row: row, column: column, ship: ship_2)
+        result = board.place_ship_vertically(coordinate: coordinate, ship: ship_2)
 
         expect(result).to eq false
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship

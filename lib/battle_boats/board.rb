@@ -41,9 +41,9 @@ module BattleBoats
       end
     end
 
-    def place_ship_horizontally(row:, column:, ship:)
+    def place_ship_horizontally(coordinate:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        coordinate = BattleBoats::Coordinate.new(row: row, column: column + offset)
+        coordinate = BattleBoats::Coordinate.new(row: coordinate.row, column: coordinate.column + offset)
         cell_at(coordinate: coordinate)
       end
 
@@ -56,9 +56,9 @@ module BattleBoats
       end
     end
 
-    def place_ship_vertically(row:, column:, ship:)
+    def place_ship_vertically(coordinate:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        coordinate = BattleBoats::Coordinate.new(row: row - offset, column: column)
+        coordinate = BattleBoats::Coordinate.new(row: coordinate.row - offset, column: coordinate.column)
         cell_at(coordinate: coordinate)
       end
 
