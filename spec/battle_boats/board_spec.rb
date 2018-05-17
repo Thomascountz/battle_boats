@@ -1,6 +1,7 @@
 require 'battle_boats/board'
 require 'battle_boats/cell'
 require 'battle_boats/ship'
+require 'battle_boats/coordinate'
 
 RSpec.describe BattleBoats::Board do
 
@@ -28,8 +29,9 @@ RSpec.describe BattleBoats::Board do
         it 'it strikes the cell and updates the status report' do
           row = 1
           column = 1
+          coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-          result = board.strike_position(row: row, column: column)
+          result = board.strike_position(coordinate: coordinate)
 
           expect(result).to eq true
           expect(board.cell_at(row: row, column: column)).to be_hit
@@ -41,9 +43,10 @@ RSpec.describe BattleBoats::Board do
         it 'updates the error messages to include an "already hit" statement' do
           row = 1
           column = 1
+          coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-          board.strike_position(row: row, column: column)
-          result = board.strike_position(row: row, column: column)
+          board.strike_position(coordinate: coordinate)
+          result = board.strike_position(coordinate: coordinate)
 
           expect(result).to eq false
           expect(board.error_messages).to include('That position has already been hit')
@@ -55,8 +58,9 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid row" statement' do
         row = 10
         column = 0
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.strike_position(row: row, column: column)
+        result = board.strike_position(coordinate: coordinate)
 
         expect(result).to eq false
         expect(board.error_messages).to include('The selected row is invalid')
@@ -67,8 +71,9 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid row" statement' do
         row = "hello"
         column = 0
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.strike_position(row: row, column: column)
+        result = board.strike_position(coordinate: coordinate)
 
         expect(result).to eq false
         expect(board.error_messages).to include('The selected row is invalid')
@@ -79,8 +84,9 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid column" statement' do
         row = 0
         column = 10
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.strike_position(row: row, column: column)
+        result = board.strike_position(coordinate: coordinate)
 
         expect(result).to eq false
         expect(board.error_messages).to include('The selected column is invalid')
@@ -91,8 +97,9 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid column" statement' do
         row = 0
         column = "hello"
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.strike_position(row: row, column: column)
+        result = board.strike_position(coordinate: coordinate)
 
         expect(result).to eq false
         expect(board.error_messages).to include('The selected column is invalid')
@@ -103,8 +110,9 @@ RSpec.describe BattleBoats::Board do
       it 'updates the error messages to include an "invalid row" and "invalid column" statement' do
         row = 420
         column = "hello"
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        result = board.strike_position(row: row, column: column)
+        result = board.strike_position(coordinate: coordinate)
 
         expect(result).to eq false
         expect(board.error_messages).to include('The selected column is invalid')
