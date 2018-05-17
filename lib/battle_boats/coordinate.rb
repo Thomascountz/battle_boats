@@ -6,5 +6,9 @@ module BattleBoats
       @row = row
       @column = column
     end
+
+    def up
+      self.class.new(row: row - 1, column: column)
+    end
   end
 end

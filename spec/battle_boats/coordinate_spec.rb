@@ -20,4 +20,16 @@ RSpec.describe BattleBoats::Coordinate do
       expect(coordinate.column).to eq column
     end
   end
+
+  describe '#up' do
+    it 'returns the coordinate above' do
+      row = 9
+      column = 1
+      coordinate = BattleBoats::Coordinate.new(row: row, column: column)
+
+      coordinate_above = coordinate.up
+
+      expect(coordinate_above.row).to eq 8
+    end
+  end
 end
