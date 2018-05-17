@@ -82,7 +82,7 @@ module BattleBoats
         @error_messages << "The selected column is invalid"
       end
       if @error_messages.empty?
-        if !position_available?(row: coordinate.row, column: coordinate.column)
+        if !position_available?(coordinate: coordinate)
           @error_messages << "That position has already been hit"
         end
       end
@@ -96,8 +96,7 @@ module BattleBoats
       end
     end
 
-    def position_available?(row:, column:)
-      coordinate = BattleBoats::Coordinate.new(row: row, column: column)
+    def position_available?(coordinate:)
       !cell_at(coordinate: coordinate).hit?
     end
   end
