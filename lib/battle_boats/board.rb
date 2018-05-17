@@ -45,7 +45,9 @@ module BattleBoats
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-        place_ship_in_cells(cells: cells_to_occupy, ship: ship)
+        cells_to_occupy.each do |cell|
+          cell.occupant = ship
+        end
       else
         return false
       end
@@ -57,7 +59,9 @@ module BattleBoats
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-        place_ship_in_cells(cells: cells_to_occupy, ship: ship)
+        cells_to_occupy.each do |cell|
+          cell.occupant = ship
+        end
       else
         return false
       end
@@ -90,12 +94,6 @@ module BattleBoats
 
     def position_available?(row:, column:)
       !cell_at(row: row, column: column).hit?
-    end
-
-    def place_ship_in_cells(cells:, ship:)
-      cells.each do |cell|
-        cell.occupant = ship
-      end
     end
   end
 end
