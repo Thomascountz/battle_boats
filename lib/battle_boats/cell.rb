@@ -34,5 +34,9 @@ module BattleBoats
         "All Clear!"
       end
     end
+
+    def occupied?
+      !occupant.empty?
+    end
   end
 end

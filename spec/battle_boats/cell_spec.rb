@@ -88,4 +88,23 @@ RSpec.describe BattleBoats::Cell do
       end
     end
   end
+
+  describe '#occupied?' do
+    context 'when the occupant is a ship' do
+      it 'returns true' do
+        cell = BattleBoats::Cell.new
+        cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 1)
+
+        expect(cell).to be_occupied
+      end
+    end
+    context 'when the occupant is a null ship' do
+      it 'returns false' do
+        cell = BattleBoats::Cell.new
+        cell.occupant = BattleBoats::NullShip.new
+
+        expect(cell).to_not be_occupied
+      end
+    end
+  end
 end
