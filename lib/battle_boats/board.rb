@@ -56,7 +56,7 @@ module BattleBoats
         cell_at(row: row - offset, column: column)
       end
 
-      if cells_to_occupy.none?(&:nil?)
+      if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
         place_ship_in_cells(cells: cells_to_occupy, ship: ship)
       else
         return false
