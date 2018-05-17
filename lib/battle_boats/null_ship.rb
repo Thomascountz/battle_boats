@@ -7,5 +7,9 @@ module BattleBoats
       @length = 1
       @symbol = "X"
     end
+
+    def empty?
+      true
+    end
   end
 end

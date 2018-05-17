@@ -22,4 +22,11 @@ RSpec.describe BattleBoats::NullShip do
       expect(ship.symbol).to eq 'X'
     end
   end
+  describe '#empty?' do
+    it 'returns true' do
+      ship = BattleBoats::NullShip.new
+
+      expect(ship).to be_empty
+    end
+  end
 end

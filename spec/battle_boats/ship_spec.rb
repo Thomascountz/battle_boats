@@ -25,4 +25,11 @@ RSpec.describe BattleBoats::Ship do
       expect(ship.symbol).to eq symbol
     end
   end
+  describe '#empty?' do
+    it 'returns false' do
+      ship = BattleBoats::Ship.new(name: nil, length: nil, symbol: nil)
+
+      expect(ship).to_not be_empty
+    end
+  end
 end
