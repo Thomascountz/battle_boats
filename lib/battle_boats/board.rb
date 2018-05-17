@@ -41,15 +41,10 @@ module BattleBoats
 
     def place_ship_horizontally(row:, column:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        cell = cell_at(row: row, column: column + offset)
-        if cell.nil? || !cell.occupant.empty?
-          nil
-        else
-          cell
-        end
+        cell_at(row: row, column: column + offset)
       end
 
-      if cells_to_occupy.none?(&:nil?)
+      if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
         place_ship_in_cells(cells: cells_to_occupy, ship: ship)
       else
         return false
