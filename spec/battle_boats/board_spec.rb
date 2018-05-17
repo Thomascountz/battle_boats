@@ -180,6 +180,22 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(row: row, column: column).occupant).to_not be ship
       end
     end
+    context 'when a ship would occupy a cell that already contains a ship' do
+      it 'returns false' do
+        ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
+        ship_2 = BattleBoats::Ship.new(name: "Destroyer", length: 2, symbol: "D")
+        row = 0
+        column = 0
+
+        board.place_ship_horizontally(row: row, column: column, ship: ship)
+
+        result = board.place_ship_horizontally(row: row, column: column, ship: ship_2)
+
+        expect(result).to eq false
+        expect(board.cell_at(row: row, column: column).occupant).to be ship
+        expect(board.cell_at(row: row, column: column).occupant).to_not be ship_2
+      end
+    end
   end
   describe '#place_ship_vertically' do
     context 'when the given ship fits at the given position' do
