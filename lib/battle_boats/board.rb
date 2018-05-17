@@ -20,7 +20,7 @@ module BattleBoats
     def strike_position(coordinate:)
       validate_position(row: coordinate.row, column: coordinate.column)
       if @error_messages.empty?
-        cell = cell_at(row: coordinate.row, column: coordinate.column)
+        cell = cell_at(coordinate: coordinate)
         cell.strike
         @status_report = cell.status_report
         true
@@ -33,7 +33,9 @@ module BattleBoats
       false
     end
 
-    def cell_at(row:, column:)
+    def cell_at(coordinate:)
+      row = coordinate.row
+      column = coordinate.column
       if @play_area[row.to_i] && row.to_i >= 0 && column.to_i >= 0
         @play_area[row.to_i][column.to_i]
       end
@@ -41,7 +43,8 @@ module BattleBoats
 
     def place_ship_horizontally(row:, column:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        cell_at(row: row, column: column + offset)
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column + offset)
+        cell_at(coordinate: coordinate)
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
@@ -55,7 +58,8 @@ module BattleBoats
 
     def place_ship_vertically(row:, column:, ship:)
       cells_to_occupy = Array.new(ship.length) do |offset|
-        cell_at(row: row - offset, column: column)
+        coordinate = BattleBoats::Coordinate.new(row: row - offset, column: column)
+        cell_at(coordinate: coordinate)
       end
 
       if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
@@ -93,7 +97,8 @@ module BattleBoats
     end
 
     def position_available?(row:, column:)
-      !cell_at(row: row, column: column).hit?
+      coordinate = BattleBoats::Coordinate.new(row: row, column: column)
+      !cell_at(coordinate: coordinate).hit?
     end
   end
 end

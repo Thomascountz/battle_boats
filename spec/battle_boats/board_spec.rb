@@ -34,7 +34,7 @@ RSpec.describe BattleBoats::Board do
           result = board.strike_position(coordinate: coordinate)
 
           expect(result).to eq true
-          expect(board.cell_at(row: row, column: column)).to be_hit
+          expect(board.cell_at(coordinate: coordinate)).to be_hit
           expect(board.status_report.downcase).to include('hit', 'nothing')
         end
       end
@@ -132,32 +132,36 @@ RSpec.describe BattleBoats::Board do
       it 'returns the cell located at that row and column' do
         row = 3
         column = 4
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        expect(board.cell_at(row: row, column: column)).to be board.play_area[row][column]
+        expect(board.cell_at(coordinate: coordinate)).to be board.play_area[row][column]
       end
     end
     context 'when the row and column are not within the play_area' do
       it 'returns nil' do
         row = 8008
         column = 4
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        expect(board.cell_at(row: row, column: column)).to eq nil
+        expect(board.cell_at(coordinate: coordinate)).to eq nil
       end
     end
     context 'when the row is negative' do
       it 'returns nil' do
         row = -1
         column = 4
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        expect(board.cell_at(row: row, column: column)).to eq nil
+        expect(board.cell_at(coordinate: coordinate)).to eq nil
       end
     end
     context 'when the column is negative' do
       it 'returns nil' do
         row = 6
         column = -1
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
-        expect(board.cell_at(row: row, column: column)).to eq nil
+        expect(board.cell_at(coordinate: coordinate)).to eq nil
       end
     end
   end
@@ -168,12 +172,13 @@ RSpec.describe BattleBoats::Board do
         ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
         row = 0
         column = 0
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         board. place_ship_horizontally(row: row, column: column, ship: ship)
 
-        expect(board.cell_at(row: row, column: column).occupant).to be ship
-        expect(board.cell_at(row: row, column: column + 1).occupant).to be ship
-        expect(board.cell_at(row: row, column: column + 2).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
       end
     end
     context 'when the given ship does not fit at the given position' do
@@ -181,11 +186,12 @@ RSpec.describe BattleBoats::Board do
         ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
         row = 0
         column = 9
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         result = board.place_ship_horizontally(row: row, column: column, ship: ship)
 
         expect(result).to eq false
-        expect(board.cell_at(row: row, column: column).occupant).to_not be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship
       end
     end
     context 'when a ship would occupy a cell that already contains a ship' do
@@ -194,14 +200,15 @@ RSpec.describe BattleBoats::Board do
         ship_2 = BattleBoats::Ship.new(name: "Destroyer", length: 2, symbol: "D")
         row = 0
         column = 0
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         board.place_ship_horizontally(row: row, column: column, ship: ship)
 
         result = board.place_ship_horizontally(row: row, column: column, ship: ship_2)
 
         expect(result).to eq false
-        expect(board.cell_at(row: row, column: column).occupant).to be ship
-        expect(board.cell_at(row: row, column: column).occupant).to_not be ship_2
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship_2
       end
     end
   end
@@ -211,12 +218,13 @@ RSpec.describe BattleBoats::Board do
         ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
         row = 9
         column = 9
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         board. place_ship_vertically(row: row, column: column, ship: ship)
 
-        expect(board.cell_at(row: row, column: column).occupant).to be ship
-        expect(board.cell_at(row: row - 1, column: column).occupant).to be ship
-        expect(board.cell_at(row: row - 2, column: column).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
       end
     end
     context 'when the given ship does not fit at the given position' do
@@ -224,11 +232,12 @@ RSpec.describe BattleBoats::Board do
         ship = BattleBoats::Ship.new(name: "Submarine", length: 3, symbol: "S")
         row = 0
         column = 9
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         result = board.place_ship_vertically(row: row, column: column, ship: ship)
 
         expect(result).to eq false
-        expect(board.cell_at(row: row, column: column).occupant).to_not be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship
       end
     end
     context 'when a ship would occupy a cell that already contains a ship' do
@@ -237,14 +246,15 @@ RSpec.describe BattleBoats::Board do
         ship_2 = BattleBoats::Ship.new(name: "Destroyer", length: 2, symbol: "D")
         row = 9
         column = 9
+        coordinate = BattleBoats::Coordinate.new(row: row, column: column)
 
         board.place_ship_vertically(row: row, column: column, ship: ship)
 
         result = board.place_ship_vertically(row: row, column: column, ship: ship_2)
 
         expect(result).to eq false
-        expect(board.cell_at(row: row, column: column).occupant).to be ship
-        expect(board.cell_at(row: row, column: column).occupant).to_not be ship_2
+        expect(board.cell_at(coordinate: coordinate).occupant).to be ship
+        expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship_2
       end
     end
   end
