@@ -46,10 +46,8 @@ module BattleBoats
         cell_at(coordinate: coordinate.right(offset: offset))
       end
 
-      if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-        cells_to_occupy.each do |cell|
-          cell.occupant = ship
-        end
+      if cells_are_occupiable(cells_to_occupy)
+        occupy_cells(cells: cells_to_occupy, ship: ship)
       else
         return false
       end
@@ -60,12 +58,20 @@ module BattleBoats
         cell_at(coordinate: coordinate.up(offset: offset))
       end
 
-      if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-        cells_to_occupy.each do |cell|
-          cell.occupant = ship
-        end
+      if cells_are_occupiable(cells_to_occupy)
+        occupy_cells(cells: cells_to_occupy, ship: ship)
       else
         return false
+      end
+    end
+
+    def cells_are_occupiable(cells)
+      cells.none?(&:nil?) && cells.none?(&:occupied?)
+    end
+
+    def occupy_cells(cells:, ship:)
+      cells.each do |cell|
+        cell.occupant = ship
       end
     end
 
