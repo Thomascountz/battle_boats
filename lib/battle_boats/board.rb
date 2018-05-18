@@ -34,10 +34,8 @@ module BattleBoats
     end
 
     def cell_at(coordinate:)
-      row = coordinate.row
-      column = coordinate.column
-      if @play_area[row.to_i] && row.to_i >= 0 && column.to_i >= 0
-        @play_area[row.to_i][column.to_i]
+      if within_range?(coordinate.row) && within_range?(coordinate.column)
+        @play_area[coordinate.row.to_i][coordinate.column.to_i]
       end
     end
 
@@ -46,11 +44,7 @@ module BattleBoats
         cell_at(coordinate: coordinate.right(offset: offset))
       end
 
-      if cells_are_occupiable(cells_to_occupy)
-        occupy_cells(cells: cells_to_occupy, ship: ship)
-      else
-        return false
-      end
+      occupy_cells(cells: cells_to_occupy, ship: ship)
     end
 
     def place_ship_vertically(coordinate:, ship:)
@@ -58,31 +52,17 @@ module BattleBoats
         cell_at(coordinate: coordinate.up(offset: offset))
       end
 
-      if cells_are_occupiable(cells_to_occupy)
-        occupy_cells(cells: cells_to_occupy, ship: ship)
-      else
-        return false
-      end
-    end
-
-    def cells_are_occupiable(cells)
-      cells.none?(&:nil?) && cells.none?(&:occupied?)
-    end
-
-    def occupy_cells(cells:, ship:)
-      cells.each do |cell|
-        cell.occupant = ship
-      end
+      occupy_cells(cells: cells_to_occupy, ship: ship)
     end
 
     private
 
     def validate_position(coordinate:)
       @error_messages.clear
-      if !between_zero_and_nine?(coordinate.row)
+      if !within_range?(coordinate.row)
         @error_messages << "The selected row is invalid"
       end
-      if !between_zero_and_nine?(coordinate.column)
+      if !within_range?(coordinate.column)
         @error_messages << "The selected column is invalid"
       end
       if @error_messages.empty?
@@ -92,7 +72,7 @@ module BattleBoats
       end
     end
 
-    def between_zero_and_nine?(input)
+    def within_range?(input)
       if input.to_s =~ /^[0-9]$/
         true
       else
@@ -102,6 +82,20 @@ module BattleBoats
 
     def position_available?(coordinate:)
       !cell_at(coordinate: coordinate).hit?
+    end
+
+    def occupy_cells(cells:, ship:)
+      if cells_are_occupiable(cells)
+        cells.each do |cell|
+          cell.occupant = ship
+        end
+      else
+        false
+      end
+    end
+
+    def cells_are_occupiable(cells)
+      cells.none?(&:nil?) && cells.none?(&:occupied?)
     end
   end
 end
