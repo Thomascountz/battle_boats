@@ -8,14 +8,15 @@ require 'battle_boats/coordinate'
 board = BattleBoats::Board.new
 
 BattleBoats::FLEET.each do |ship|
-  coin = [1, 2].sample
-  if coin == 1
-    until board.place_ship_horizontally(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
-      board.place_ship_horizontally(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+  coin_toss = [1, 2].sample
+  random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+  if coin_toss == 1
+    until board.place_ship_horizontally(coordinate: random_coordinate, ship: ship)
+      random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
     end
   else
-    until board.place_ship_vertically(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
-      board.place_ship_vertically(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+    until board.place_ship_vertically(coordinate: random_coordinate, ship: ship)
+      random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
     end
   end
 end
