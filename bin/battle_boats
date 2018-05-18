@@ -1,4 +1,26 @@
 #!/usr/bin/env ruby
 
 require 'battle_boats/engine'
-BattleBoats::Engine.new.start
+require 'battle_boats/board'
+require 'battle_boats/fleet'
+require 'battle_boats/coordinate'
+
+board = BattleBoats::Board.new
+
+BattleBoats::FLEET.each do |ship|
+  coin = [1, 2].sample
+  if coin == 1
+    until board.place_ship_horizontally(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+      board.place_ship_horizontally(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+    end
+  else
+    until board.place_ship_vertically(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+      board.place_ship_vertically(coordinate: BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9)), ship: ship)
+    end
+  end
+end
+
+
+engine = BattleBoats::Engine.new(board: board)
+engine.start
+
