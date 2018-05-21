@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    battle_boats (0.0.4)
+    battle_boats (0.0.5)
 
 GEM
   remote: https://rubygems.org/
