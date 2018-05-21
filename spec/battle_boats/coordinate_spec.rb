@@ -1,9 +1,8 @@
-require 'battle_boats/coordinate'
+require "battle_boats/coordinate"
 
 RSpec.describe BattleBoats::Coordinate do
-
-  describe '#row' do
-    it 'returns a row' do
+  describe "#row" do
+    it "returns a row" do
       row = 5
 
       coordinate = BattleBoats::Coordinate.new(row: row)
@@ -11,8 +10,8 @@ RSpec.describe BattleBoats::Coordinate do
       expect(coordinate.row).to eq row
     end
   end
-  describe '#column' do
-    it 'returns a column' do
+  describe "#column" do
+    it "returns a column" do
       column = 5
 
       coordinate = BattleBoats::Coordinate.new(column: column)
@@ -21,8 +20,8 @@ RSpec.describe BattleBoats::Coordinate do
     end
   end
 
-  describe '#up' do
-    it 'returns the coordinate above' do
+  describe "#up" do
+    it "returns the coordinate above" do
       row = 9
       column = 1
       offset = 2
@@ -33,8 +32,8 @@ RSpec.describe BattleBoats::Coordinate do
       expect(coordinate_above.row).to eq 7
     end
   end
-  describe '#right' do
-    it 'returns the coordinate to the right' do
+  describe "#right" do
+    it "returns the coordinate to the right" do
       row = 1
       column = 1
       offset = 3

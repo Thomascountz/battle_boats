@@ -1,18 +1,19 @@
-require 'battle_boats/engine'
-require 'battle_boats/console_ui'
-require 'battle_boats/board'
-require 'battle_boats/coordinate'
+require "battle_boats/engine"
+require "battle_boats/console_ui"
+require "battle_boats/board"
+require "battle_boats/coordinate"
 
 RSpec.describe BattleBoats::Engine do
-
   let(:console_ui) { instance_double(BattleBoats::ConsoleUI) }
   let(:board) { instance_double(BattleBoats::Board) }
-  subject(:engine) { described_class.new(interface: console_ui,
-                                         board: board) }
+  subject(:engine) do
+    described_class.new(interface: console_ui,
+                        board: board)
+  end
 
-  describe '#start' do
-    context 'when the row and column input is valid' do
-      it 'plays the game until it is over' do
+  describe "#start" do
+    context "when the row and column input is valid" do
+      it "plays the game until it is over" do
         row = "row"
         column = "column"
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
@@ -31,8 +32,8 @@ RSpec.describe BattleBoats::Engine do
       end
     end
 
-    context 'when the row and column input is invalid' do
-      it 'prompts the user to re-enter a row and column' do
+    context "when the row and column input is invalid" do
+      it "prompts the user to re-enter a row and column" do
         row = "row"
         column = "column"
         invalid_row = "invalid_row"
@@ -62,4 +63,3 @@ RSpec.describe BattleBoats::Engine do
     end
   end
 end
-
