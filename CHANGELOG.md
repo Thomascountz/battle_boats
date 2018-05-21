@@ -1,3 +1,9 @@
+# 0.0.5
+### New Features
+- Starting the game will display a board of randomly placed enemy ships
+- Hitting a ship will display a "You hit my `<<ship>>`" message
+- Hitting a ship will display the initial of the ship you've hit on the board
+
 # 0.0.4
 ### New Features
 - Error messages for bad input

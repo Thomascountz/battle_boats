@@ -1,3 +1,5 @@
+require_relative "coordinate"
+
 module BattleBoats
   class ConsoleUI
     def initialize(output: $stdout, input: $stdin)
@@ -13,14 +15,10 @@ module BattleBoats
       output.puts format_board(board)
     end
 
-    def get_row
-      output.puts "Target row:"
-      input.gets.chomp
-    end
-
-    def get_column
-      output.puts "Target column:"
-      input.gets.chomp
+    def get_coordinate
+      row = get_row
+      column = get_column
+      BattleBoats::Coordinate.new(row: row, column: column)
     end
 
     def display_status_report(status_report)
@@ -46,11 +44,7 @@ module BattleBoats
         board_string << "  #{row_number}  "
         board_string << pipe
         row.each do |cell|
-          board_string << if cell
-                            "  #{cell}  "
-                          else
-                            "  .  "
-                          end
+          board_string << "  #{cell}  "
           board_string << pipe
         end
         board_string << newline
@@ -74,6 +68,16 @@ module BattleBoats
 
     def pipe
       "|"
+    end
+
+    def get_row
+      output.puts "Target row:"
+      input.gets.chomp
+    end
+
+    def get_column
+      output.puts "Target column:"
+      input.gets.chomp
     end
   end
 end
