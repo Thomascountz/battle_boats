@@ -1,4 +1,5 @@
 require_relative "coordinate"
+require_relative "colorize"
 
 module BattleBoats
   class ConsoleUI

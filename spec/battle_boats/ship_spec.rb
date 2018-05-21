@@ -22,12 +22,12 @@ RSpec.describe BattleBoats::Ship do
       symbol = "P"
       ship = BattleBoats::Ship.new(name: nil, length: nil, symbol: symbol)
 
-      expect(ship.symbol).to eq symbol
+      expect(ship.symbol).to include symbol
     end
   end
   describe "#empty?" do
     it "returns false" do
-      ship = BattleBoats::Ship.new(name: nil, length: nil, symbol: nil)
+      ship = BattleBoats::Ship.new(name: nil, length: nil)
 
       expect(ship).to_not be_empty
     end
