@@ -37,7 +37,7 @@ RSpec.describe BattleBoats::Cell do
       end
     end
 
-    context "when a cell has been struck" do
+    context "when a cell has already been hit" do
       it "returns the string representation of a hit cell" do
         cell = BattleBoats::Cell.new
         symbol = "G"
@@ -59,14 +59,14 @@ RSpec.describe BattleBoats::Cell do
   end
 
   describe "#status_report" do
-    context "when unhit" do
+    context "when a cell is not hit" do
       it 'returns an "all clear" message' do
         cell = BattleBoats::Cell.new
 
         expect(cell.status_report.downcase).to include("clear")
       end
     end
-    context "when struck" do
+    context "when a cell has been struck" do
       context "without an occupant" do
         it 'returns a "miss" message' do
           cell = BattleBoats::Cell.new

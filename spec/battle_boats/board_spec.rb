@@ -24,7 +24,7 @@ RSpec.describe BattleBoats::Board do
 
   describe "#strike_position" do
     context "when the row and column are valid positions in the play area" do
-      context "when the cell at the given does not contain a ship" do
+      context "when the cell at the coordinate does not contain a ship" do
         it "it strikes the cell and updates the status report" do
           row = 1
           column = 1
@@ -66,7 +66,7 @@ RSpec.describe BattleBoats::Board do
       end
     end
 
-    context "when the row is not a number between 0 and 9" do
+    context "when the row is not within the range of the play area" do
       it 'updates the error messages to include an "invalid row" statement' do
         row = "hello"
         column = 0
@@ -92,7 +92,7 @@ RSpec.describe BattleBoats::Board do
       end
     end
 
-    context "when the column is not a number between 0 and 9" do
+    context "when the column is not within the range of the play area" do
       it 'updates the error messages to include an "invalid column" statement' do
         row = 0
         column = "hello"
@@ -127,7 +127,7 @@ RSpec.describe BattleBoats::Board do
   end
 
   describe "#cell_at" do
-    context "when the row and column are within the play_area" do
+    context "when the row and column are within the play area" do
       it "returns the cell located at that row and column" do
         row = 3
         column = 4
@@ -136,7 +136,7 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(coordinate: coordinate)).to be board.play_area[row][column]
       end
     end
-    context "when the row and column are not within the play_area" do
+    context "when the row and column are not within the play area" do
       it "returns nil" do
         row = 8008
         column = 4
