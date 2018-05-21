@@ -1,7 +1,7 @@
 version: "2"
 plugins:
   rubocop:
-    enable: true
+    enabled: true
 exclude_patterns:
   - 'spec/*'
   - 'Gemfile'
