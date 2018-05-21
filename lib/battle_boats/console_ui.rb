@@ -36,12 +36,12 @@ module BattleBoats
     def format_board(board)
       board_string = horizontal_line
       board_string << newline
-      board_string << top_row
+      board_string << column_label
       board_string << horizontal_line
       board_string << newline
       board.play_area.each_with_index do |row, row_number|
         board_string << pipe
-        board_string << "  #{row_number}  "
+        board_string << "  #{row_labels[row_number]}  "
         board_string << pipe
         row.each do |cell|
           board_string << "  #{cell}  "
@@ -54,8 +54,12 @@ module BattleBoats
       board_string
     end
 
-    def top_row
+    def column_label
       "|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n"
+    end
+
+    def row_labels
+      ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     end
 
     def newline
