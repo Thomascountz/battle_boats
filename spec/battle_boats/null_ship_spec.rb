@@ -19,7 +19,7 @@ RSpec.describe BattleBoats::NullShip do
     it "returns the symbol of a null ship" do
       ship = BattleBoats::NullShip.new
 
-      expect(ship.symbol).to eq "X"
+      expect(ship.symbol).to include "X"
     end
   end
   describe "#empty?" do

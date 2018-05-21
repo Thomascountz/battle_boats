@@ -1,6 +1,8 @@
 require_relative "null_ship"
+require_relative "colorize"
 
 module BattleBoats
+  using Colorize
   class Cell
     attr_accessor :occupant
 
@@ -23,7 +25,7 @@ module BattleBoats
       if hit?
         occupant.symbol
       else
-        "."
+        ".".blue
       end
     end
 
