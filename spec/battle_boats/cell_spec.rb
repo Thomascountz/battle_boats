@@ -79,6 +79,15 @@ RSpec.describe BattleBoats::Cell do
             expect(cell.status_report.downcase).to include("hit", "my", "ship")
           end
         end
+        context "when the hit results in a sink" do
+          it 'returns a "sunk" message' do
+            cell = BattleBoats::Cell.new
+            cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 1)
+            cell.strike
+
+            expect(cell.status_report.downcase).to include("sunk", "my", "ship")
+          end
+        end
       end
     end
   end
