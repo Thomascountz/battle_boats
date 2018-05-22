@@ -17,14 +17,12 @@ module BattleBoats
 
     def get_coordinate
       output.puts "Target coordinate: "
-      coordinate = input.gets.chomp
-      until coordinate =~ /^[A-J][0-9]$/i
+      user_input = input.gets.chomp
+      until valid_coordinate?(user_input)
         output.puts "Coordinate invalid."
-        coordinate = input.gets.chomp
+        user_input = input.gets.chomp
       end
-      row = row_labels.index(coordinate[0].upcase)
-      column = coordinate[1].to_i
-      BattleBoats::Coordinate.new(row: row, column: column)
+      input_to_coordinate(user_input)
     end
 
     def display_status_report(status_report)
@@ -38,6 +36,18 @@ module BattleBoats
     private
 
     attr_reader :output, :input
+
+    def valid_coordinate?(coordinate)
+      coordinate =~ /^[A-J][0-9]$/i
+    end
+
+    def input_to_coordinate(input)
+      input_row = input[0]
+      input_column = input[1]
+      row = row_labels.index(input_row.upcase)
+      column = input_column.to_i
+      BattleBoats::Coordinate.new(row: row, column: column)
+    end
 
     def format_board(board)
       board_string = horizontal_line
