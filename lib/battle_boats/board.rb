@@ -34,7 +34,7 @@ module BattleBoats
     end
 
     def cell_at(coordinate:)
-      if within_range?(coordinate)
+      if within_range?(coordinate: coordinate)
         @play_area[coordinate.row.to_i][coordinate.column.to_i]
       end
     end
@@ -64,7 +64,7 @@ module BattleBoats
       end
     end
 
-    def within_range?(coordinate)
+    def within_range?(coordinate:)
       if coordinate.row.to_s =~ /^[0-9]$/ && coordinate.column.to_s =~ /^[0-9]$/
         true
       else
@@ -77,7 +77,7 @@ module BattleBoats
     end
 
     def occupy_cells(cells:, ship:)
-      if cells_are_occupiable(cells)
+      if cells_are_occupiable(cells: cells)
         cells.each do |cell|
           cell.occupant = ship
         end
@@ -86,7 +86,7 @@ module BattleBoats
       end
     end
 
-    def cells_are_occupiable(cells)
+    def cells_are_occupiable(cells:)
       cells.none?(&:nil?) && cells.none?(&:occupied?)
     end
   end
