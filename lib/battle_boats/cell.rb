@@ -17,6 +17,7 @@ module BattleBoats
 
     def strike
       if !hit?
+        occupant.hit
         @hit = true
       end
     end
@@ -30,10 +31,11 @@ module BattleBoats
     end
 
     def status_report
-      if hit?
-        "You hit my #{occupant.name}!"
-      else
-        "All Clear!"
+      occupant_name = occupant.name
+      if occupant.sunk?
+        "You sunk my #{occupant_name}!"
+      elsif hit?
+        "You hit my #{occupant_name}!"
       end
     end
 

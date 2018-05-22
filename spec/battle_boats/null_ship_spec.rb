@@ -29,4 +29,18 @@ RSpec.describe BattleBoats::NullShip do
       expect(ship).to be_empty
     end
   end
+  describe "#hit" do
+    it "returns nil" do
+      ship = BattleBoats::NullShip.new
+
+      expect(ship.hit).to be_nil
+    end
+  end
+  describe "#sunk?" do
+    it "returns nil" do
+      ship = BattleBoats::NullShip.new
+
+      expect(ship.sunk?).to be_nil
+    end
+  end
 end

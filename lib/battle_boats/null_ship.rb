@@ -14,5 +14,9 @@ module BattleBoats
     def empty?
       true
     end
+
+    def hit; end
+
+    def sunk?; end
   end
 end

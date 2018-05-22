@@ -59,13 +59,6 @@ RSpec.describe BattleBoats::Cell do
   end
 
   describe "#status_report" do
-    context "when a cell is not hit" do
-      it 'returns an "all clear" message' do
-        cell = BattleBoats::Cell.new
-
-        expect(cell.status_report.downcase).to include("clear")
-      end
-    end
     context "when a cell has been struck" do
       context "without an occupant" do
         it 'returns a "miss" message' do
@@ -77,12 +70,23 @@ RSpec.describe BattleBoats::Cell do
         end
       end
       context "with an occupant" do
-        it 'returns a "hit" message' do
-          cell = BattleBoats::Cell.new
-          cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 1)
-          cell.strike
+        context "when the hit does not result in a sink" do
+          it 'returns a "hit" message' do
+            cell = BattleBoats::Cell.new
+            cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 2)
+            cell.strike
 
-          expect(cell.status_report.downcase).to include("hit", "my", "ship")
+            expect(cell.status_report.downcase).to include("hit", "my", "ship")
+          end
+        end
+        context "when the hit results in a sink" do
+          it 'returns a "sunk" message' do
+            cell = BattleBoats::Cell.new
+            cell.occupant = BattleBoats::Ship.new(name: "Ship", length: 1)
+            cell.strike
+
+            expect(cell.status_report.downcase).to include("sunk", "my", "ship")
+          end
         end
       end
     end
