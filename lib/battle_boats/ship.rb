@@ -9,10 +9,15 @@ module BattleBoats
       @name = name
       @length = length
       @symbol = symbol.red
+      @hits = 0
     end
 
     def empty?
       false
+    end
+    
+    def hit_count
+      @hits
     end
   end
 end

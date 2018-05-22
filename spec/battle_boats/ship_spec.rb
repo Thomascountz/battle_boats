@@ -32,4 +32,12 @@ RSpec.describe BattleBoats::Ship do
       expect(ship).to_not be_empty
     end
   end
+  describe "#hit_count" do
+    context "returns the number of times the ship has been hit" do
+      it 'returns zero' do
+        ship = BattleBoats::Ship.new(name: nil, length: 2)
+        expect(ship.hit_count).to eq 0
+      end
+    end
+  end
 end
