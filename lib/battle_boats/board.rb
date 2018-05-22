@@ -59,16 +59,8 @@ module BattleBoats
 
     def validate_position(coordinate:)
       @error_messages.clear
-      if !within_range?(coordinate.row)
-        @error_messages << "The selected row is invalid"
-      end
-      if !within_range?(coordinate.column)
-        @error_messages << "The selected column is invalid"
-      end
-      if @error_messages.empty?
-        if !position_available?(coordinate: coordinate)
-          @error_messages << "That position has already been hit"
-        end
+      if !position_available?(coordinate: coordinate)
+        @error_messages << "That position has already been hit"
       end
     end
 
