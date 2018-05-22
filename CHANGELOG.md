@@ -1,3 +1,8 @@
+# 0.0.7
+### New Features
+- Corrdinate input format is now `<<letter>><<number>>`, eg. `G3`
+- Coordinate input is case insensitive
+
 # 0.0.6
 ### New Features
 - The game is now in color!

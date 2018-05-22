@@ -34,7 +34,7 @@ module BattleBoats
     end
 
     def cell_at(coordinate:)
-      if within_range?(coordinate.row) && within_range?(coordinate.column)
+      if within_range?(coordinate)
         @play_area[coordinate.row.to_i][coordinate.column.to_i]
       end
     end
@@ -59,21 +59,13 @@ module BattleBoats
 
     def validate_position(coordinate:)
       @error_messages.clear
-      if !within_range?(coordinate.row)
-        @error_messages << "The selected row is invalid"
-      end
-      if !within_range?(coordinate.column)
-        @error_messages << "The selected column is invalid"
-      end
-      if @error_messages.empty?
-        if !position_available?(coordinate: coordinate)
-          @error_messages << "That position has already been hit"
-        end
+      if !position_available?(coordinate: coordinate)
+        @error_messages << "That position has already been hit"
       end
     end
 
-    def within_range?(input)
-      if input.to_s =~ /^[0-9]$/
+    def within_range?(coordinate)
+      if coordinate.row.to_s =~ /^[0-9]$/ && coordinate.column.to_s =~ /^[0-9]$/
         true
       else
         false

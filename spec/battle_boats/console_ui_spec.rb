@@ -18,22 +18,37 @@ RSpec.describe BattleBoats::ConsoleUI do
       board = BattleBoats::Board.new
       console_ui.display_board(board)
 
-      expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  0  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  1  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  2  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  3  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  4  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  5  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  6  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  7  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  8  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  9  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n"
+      expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  B  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  C  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  D  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  E  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  F  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  G  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  H  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  I  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n|  J  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |  \e[34m.\e[0m  |\n-------------------------------------------------------------------\n"
 
       expect(output.string).to eq expected
     end
   end
 
   describe "#get_coordinate" do
-    it "returns a coordinate based on user input" do
-      input = StringIO.new("4\n3\n")
-      console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+    context "when the coordinate input is valid" do
+      it "returns a coordinate based on user input" do
+        valid_input = "A1"
+        input = StringIO.new("#{valid_input}\n")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
 
-      result = console_ui.get_coordinate
+        result = console_ui.get_coordinate
 
-      expect(output.string).to include("row", "column")
-      expect(result.row).to eq("4")
-      expect(result.column).to eq("3")
+        expect(output.string).to include("coordinate")
+        expect(result.row).to eq(0)
+        expect(result.column).to eq(1)
+      end
+    end
+    context "when the coordinate input is invalid" do
+      it "prompts the user again for a coordinate" do
+        invalid_input = "A11"
+        valid_input = "A1"
+        input = StringIO.new("#{invalid_input}\n#{valid_input}")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+        console_ui.get_coordinate
+
+        expect(output.string).to include("invalid")
+      end
     end
   end
 
