@@ -32,8 +32,6 @@ module BattleBoats
     def status_report
       if hit?
         "You hit my #{occupant.name}!"
-      else
-        "All Clear!"
       end
     end
 
