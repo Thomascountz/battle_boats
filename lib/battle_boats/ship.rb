@@ -15,9 +15,17 @@ module BattleBoats
     def empty?
       false
     end
-    
+
     def hit_count
       @hits
+    end
+
+    def hit
+      @hits += 1
+    end
+
+    def sunk?
+      hit_count == length
     end
   end
 end
