@@ -16,8 +16,14 @@ module BattleBoats
     end
 
     def get_coordinate
-      row = get_row
-      column = get_column
+      output.puts "Target coordinate: "
+      coordinate = input.gets.chomp
+      until coordinate =~ /^[A-J][0-9]$/i
+        output.puts "Coordinate invalid."
+        coordinate = input.gets.chomp
+      end
+      row = row_labels.index(coordinate[0].upcase)
+      column = coordinate[1].to_i
       BattleBoats::Coordinate.new(row: row, column: column)
     end
 
@@ -72,16 +78,6 @@ module BattleBoats
 
     def pipe
       "|"
-    end
-
-    def get_row
-      output.puts "Target row:"
-      input.gets.chomp
-    end
-
-    def get_column
-      output.puts "Target column:"
-      input.gets.chomp
     end
   end
 end

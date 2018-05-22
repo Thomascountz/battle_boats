@@ -25,15 +25,30 @@ RSpec.describe BattleBoats::ConsoleUI do
   end
 
   describe "#get_coordinate" do
-    it "returns a coordinate based on user input" do
-      input = StringIO.new("4\n3\n")
-      console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+    context "when the coordinate input is valid" do
+      it "returns a coordinate based on user input" do
+        valid_input = "A1"
+        input = StringIO.new("#{valid_input}\n")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
 
-      result = console_ui.get_coordinate
+        result = console_ui.get_coordinate
 
-      expect(output.string).to include("row", "column")
-      expect(result.row).to eq("4")
-      expect(result.column).to eq("3")
+        expect(output.string).to include("coordinate")
+        expect(result.row).to eq(0)
+        expect(result.column).to eq(1)
+      end
+    end
+    context "when the coordinate input is invalid" do
+      it "prompts the user again for a coordinate" do
+        invalid_input = "A11"
+        valid_input = "A1"
+        input = StringIO.new("#{invalid_input}\n#{valid_input}")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+        console_ui.get_coordinate
+
+        expect(output.string).to include("invalid")
+      end
     end
   end
 
