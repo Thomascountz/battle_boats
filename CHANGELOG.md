@@ -1,3 +1,7 @@
+# 0.0.8
+### New Features
+- Displays "sunk" message one a ship has been hit along its entire length
+
 # 0.0.7
 ### New Features
 - Corrdinate input format is now `<<letter>><<number>>`, eg. `G3`
