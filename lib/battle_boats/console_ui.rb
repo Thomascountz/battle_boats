@@ -18,7 +18,7 @@ module BattleBoats
     def get_coordinate
       output.puts "Target coordinate: "
       user_input = input.gets.chomp
-      until valid_coordinate?(user_input)
+      until valid_input?(user_input)
         output.puts "Coordinate invalid."
         user_input = input.gets.chomp
       end
@@ -37,7 +37,7 @@ module BattleBoats
 
     attr_reader :output, :input
 
-    def valid_coordinate?(coordinate)
+    def valid_input?(coordinate)
       coordinate =~ /^[A-J][0-9]$/i
     end
 
