@@ -3,7 +3,7 @@ require "battle_boats/fleet"
 
 module BattleBoats
   class Board
-    attr_reader :play_area, :status_report, :error_messages
+    attr_reader :fleet, :play_area, :status_report, :error_messages
 
     def initialize(fleet: BattleBoats::Fleet.new)
       @fleet = fleet
@@ -52,7 +52,7 @@ module BattleBoats
     end
 
     def game_over?
-      if BattleBoats::FLEET.all?(&:sunk?)
+      if fleet.ships.all?(&:sunk?)
         true
       else
         false

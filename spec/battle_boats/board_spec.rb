@@ -75,7 +75,7 @@ RSpec.describe BattleBoats::Board do
     end
     context "when all ships in the fleet have been sunk" do
       it "returns true" do
-        BattleBoats::FLEET.each do |ship|
+        board.fleet.ships.each do |ship|
           ship.length.times do
             ship.hit
           end
