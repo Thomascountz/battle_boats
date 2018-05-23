@@ -22,20 +22,21 @@ module BattleBoats
       end
     end
 
-    def set_ships_randomly
+    def place_ships_randomly
       @fleet.ships.each do |ship|
-        coin_toss = [1, 2].sample
-        random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
-        if coin_toss == 1
-          until place_ship_horizontally(coordinate: random_coordinate, ship: ship)
-            random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+        coin_flip = ["heads", "tails"].sample
+        if coin_flip == "heads"
+          until place_ship_horizontally(coordinate: get_random_coordinate, ship: ship)
           end
         else
-          until place_ship_vertically(coordinate: random_coordinate, ship: ship)
-            random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+          until place_ship_vertically(coordinate: get_random_coordinate, ship: ship)
           end
         end
       end
+    end
+
+    def get_random_coordinate
+      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
 
     def strike_position(coordinate:)

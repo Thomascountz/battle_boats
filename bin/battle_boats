@@ -6,7 +6,7 @@ require 'battle_boats/fleet'
 require 'battle_boats/coordinate'
 
 board = BattleBoats::Board.new
-board.set_ships_randomly
+board.place_ships_randomly
 engine = BattleBoats::Engine.new(board: board)
 engine.start
 

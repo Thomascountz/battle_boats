@@ -27,7 +27,7 @@ RSpec.describe BattleBoats::Board do
       expected_cells_with_ships = 17
       board = BattleBoats::Board.new(fleet: BattleBoats::Fleet.new)
 
-      board.set_ships_randomly
+      board.place_ships_randomly
 
       cells_with_ships = board.play_area.flatten.count(&:occupied?)
 
