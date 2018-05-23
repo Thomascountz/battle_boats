@@ -8,13 +8,16 @@ module BattleBoats
     def initialize
       @status_report = ""
       @error_messages = []
-      @play_area = []
-      10.times do
+      @play_area = create_play_area
+    end
+
+    def create_play_area
+      Array.new(10) do
         row = []
         10.times do
           row << BattleBoats::Cell.new
         end
-        @play_area << row
+        row
       end
     end
 
