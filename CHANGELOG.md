@@ -1,3 +1,7 @@
+# 0.0.9
+### New Features
+- Displays "won" message once all the ship are sunk
+
 # 0.0.8
 ### New Features
 - Displays "sunk" message one a ship has been hit along its entire length

@@ -33,6 +33,10 @@ module BattleBoats
       output.puts errors
     end
 
+    def win
+      output.puts "You've won the game!"
+    end
+
     private
 
     attr_reader :output, :input
