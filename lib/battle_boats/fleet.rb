@@ -14,6 +14,4 @@ module BattleBoats
       ]
     end
   end
-
-  FLEET = BattleBoats::Fleet.new.ships
 end
