@@ -20,6 +20,8 @@ module BattleBoats
         end
         interface.display_status_report(board.status_report)
       end
+      interface.win
+      interface.display_board(board)
     end
 
     private

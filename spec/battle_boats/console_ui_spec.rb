@@ -71,4 +71,12 @@ RSpec.describe BattleBoats::ConsoleUI do
       expect(output.string).to include("error_01", "error_02")
     end
   end
+
+  describe "#win" do
+    it 'displays a "you won" message' do
+      console_ui.win
+
+      expect(output.string).to include("won")
+    end
+  end
 end

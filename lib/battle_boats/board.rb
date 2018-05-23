@@ -1,4 +1,5 @@
 require "battle_boats/cell"
+require "battle_boats/fleet"
 
 module BattleBoats
   class Board
@@ -30,7 +31,11 @@ module BattleBoats
     end
 
     def game_over?
-      false
+      if BattleBoats::FLEET.all?(&:sunk?)
+        true
+      else
+        false
+      end
     end
 
     def cell_at(coordinate:)

@@ -55,8 +55,20 @@ RSpec.describe BattleBoats::Board do
   end
 
   describe "#game_over?" do
-    it "returns false" do
-      expect(board.game_over?).to eq false
+    context "when all ships in the fleet have not been sunk" do
+      it "returns false" do
+        expect(board.game_over?).to eq false
+      end
+    end
+    context "when all ships in the fleet have not been sunk" do
+      it "returns true" do
+        BattleBoats::FLEET.each do |ship|
+          ship.length.times do
+            ship.hit
+          end
+        end
+        expect(board.game_over?).to eq true
+      end
     end
   end
 
