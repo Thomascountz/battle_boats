@@ -5,7 +5,8 @@ module BattleBoats
   class Board
     attr_reader :play_area, :status_report, :error_messages
 
-    def initialize
+    def initialize(fleet: BattleBoats::Fleet.new)
+      @fleet = fleet
       @status_report = ""
       @error_messages = []
       @play_area = create_play_area
@@ -18,6 +19,22 @@ module BattleBoats
           row << BattleBoats::Cell.new
         end
         row
+      end
+    end
+
+    def set_ships_randomly
+      @fleet.ships.each do |ship|
+        coin_toss = [1, 2].sample
+        random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+        if coin_toss == 1
+          until place_ship_horizontally(coordinate: random_coordinate, ship: ship)
+            random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+          end
+        else
+          until place_ship_vertically(coordinate: random_coordinate, ship: ship)
+            random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
+          end
+        end
       end
     end
 

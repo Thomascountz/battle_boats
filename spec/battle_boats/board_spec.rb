@@ -22,6 +22,19 @@ RSpec.describe BattleBoats::Board do
     end
   end
 
+  describe "#place_ships_randomly" do
+    it "randomly places each ship in fleet in the play area" do
+      expected_cells_with_ships = 17
+      board = BattleBoats::Board.new(fleet: BattleBoats::Fleet.new)
+
+      board.set_ships_randomly
+
+      cells_with_ships = board.play_area.flatten.count(&:occupied?)
+
+      expect(cells_with_ships).to eq expected_cells_with_ships
+    end
+  end
+
   describe "#strike_position" do
     context "when the row and column are valid positions in the play area" do
       context "when the cell at the coordinate does not contain a ship" do
