@@ -73,7 +73,7 @@ module BattleBoats
     end
 
     def within_range?(coordinate:)
-      if coordinate.row.to_s =~ /^[0-9]$/ && coordinate.column.to_s =~ /^[0-9]$/
+      if coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
         true
       else
         false
