@@ -52,7 +52,7 @@ RSpec.describe BattleBoats::Board do
       end
 
       context "when the cell has already been hit" do
-        it 'updates the error messages to include an "already hit" statement' do
+        it 'updates the status report include an "already hit" statement' do
           row = 1
           column = 1
           coordinate = BattleBoats::Coordinate.new(row: row, column: column)
@@ -61,7 +61,7 @@ RSpec.describe BattleBoats::Board do
           result = board.strike_position(coordinate: coordinate)
 
           expect(result).to eq false
-          expect(board.error_messages).to include("That position has already been hit")
+          expect(board.status_report).to include("That position has already been hit")
         end
       end
     end

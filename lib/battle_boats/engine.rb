@@ -15,7 +15,7 @@ module BattleBoats
         interface.display_board(board)
         coordinate = interface.get_coordinate
         until board.strike_position(coordinate: coordinate)
-          interface.display_errors(board.error_messages)
+          interface.display_status_report(board.status_report)
           coordinate = interface.get_coordinate
         end
         interface.display_status_report(board.status_report)

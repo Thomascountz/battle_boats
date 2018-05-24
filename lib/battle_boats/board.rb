@@ -3,12 +3,11 @@ require "battle_boats/fleet"
 
 module BattleBoats
   class Board
-    attr_reader :fleet, :play_area, :status_report, :error_messages
+    attr_reader :fleet, :play_area, :status_report
 
     def initialize(fleet: BattleBoats::Fleet.new)
       @fleet = fleet
       @status_report = ""
-      @error_messages = []
       @play_area = create_play_area
     end
 
@@ -40,14 +39,14 @@ module BattleBoats
     end
 
     def strike_position(coordinate:)
-      validate_position(coordinate: coordinate)
-      if @error_messages.empty?
-        cell = cell_at(coordinate: coordinate)
+      cell = cell_at(coordinate: coordinate)
+      if cell.hit?
+        @status_report = "That position has already been hit"
+        false
+      else
         cell.strike
         @status_report = cell.status_report
         true
-      else
-        false
       end
     end
 
@@ -83,23 +82,12 @@ module BattleBoats
 
     private
 
-    def validate_position(coordinate:)
-      @error_messages.clear
-      if !position_available?(coordinate: coordinate)
-        @error_messages << "That position has already been hit"
-      end
-    end
-
     def within_range?(coordinate:)
       if coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
         true
       else
         false
       end
-    end
-
-    def position_available?(coordinate:)
-      !cell_at(coordinate: coordinate).hit?
     end
 
     def occupy_cells(cells:, ship:)

@@ -62,16 +62,6 @@ RSpec.describe BattleBoats::ConsoleUI do
     end
   end
 
-  describe "#display_errors" do
-    it "displays the given errors to the output" do
-      errors = ["error_01", "error_02"]
-
-      console_ui.display_errors(errors)
-
-      expect(output.string).to include("error_01", "error_02")
-    end
-  end
-
   describe "#win" do
     it 'displays a "you won" message' do
       console_ui.win
