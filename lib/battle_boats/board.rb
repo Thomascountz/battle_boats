@@ -11,16 +11,6 @@ module BattleBoats
       @play_area = create_play_area
     end
 
-    def create_play_area
-      Array.new(10) do
-        row = []
-        10.times do
-          row << BattleBoats::Cell.new
-        end
-        row
-      end
-    end
-
     def place_ships_randomly
       @fleet.ships.each do |ship|
         coin_flip = ["heads", "tails"].sample
@@ -32,10 +22,6 @@ module BattleBoats
           end
         end
       end
-    end
-
-    def get_random_coordinate
-      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
 
     def strike_position(coordinate:)
@@ -51,11 +37,7 @@ module BattleBoats
     end
 
     def game_over?
-      if fleet.ships.all?(&:sunk?)
-        true
-      else
-        false
-      end
+      fleet.ships.all?(&:sunk?)
     end
 
     def cell_at(coordinate:)
@@ -82,12 +64,18 @@ module BattleBoats
 
     private
 
-    def within_range?(coordinate:)
-      if coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
-        true
-      else
-        false
+    def create_play_area
+      Array.new(10) do
+        row = []
+        10.times do
+          row << BattleBoats::Cell.new
+        end
+        row
       end
+    end
+
+    def within_range?(coordinate:)
+      coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
     end
 
     def occupy_cells(cells:, ship:)
@@ -102,6 +90,10 @@ module BattleBoats
 
     def cells_are_occupiable(cells:)
       cells.none?(&:nil?) && cells.none?(&:occupied?)
+    end
+
+    def get_random_coordinate
+      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
   end
 end
