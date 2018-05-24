@@ -24,8 +24,9 @@ RSpec.describe BattleBoats::Board do
 
   describe "#place_ships_randomly" do
     it "randomly places each ship in fleet in the play area" do
-      expected_cells_with_ships = 17
-      board = BattleBoats::Board.new(fleet: BattleBoats::Fleet.new)
+      fleet = BattleBoats::Fleet.new
+      expected_cells_with_ships = fleet.ships.sum(&:length)
+      board = BattleBoats::Board.new(fleet: fleet)
 
       board.place_ships_randomly
 
@@ -76,9 +77,7 @@ RSpec.describe BattleBoats::Board do
     context "when all ships in the fleet have been sunk" do
       it "returns true" do
         board.fleet.ships.each do |ship|
-          ship.length.times do
-            ship.hit
-          end
+          sink_ship(ship)
         end
         expect(board.game_over?).to eq true
       end
@@ -214,6 +213,11 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
         expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship2
       end
+    end
+  end
+  def sink_ship(ship)
+    ship.length.times do
+      ship.hit
     end
   end
 end
