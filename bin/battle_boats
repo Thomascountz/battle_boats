@@ -3,9 +3,9 @@
 require 'battle_boats/engine'
 require 'battle_boats/board'
 require 'battle_boats/dev_console_ui'
+require 'battle_boats/ship_deployer'
 
-board = BattleBoats::Board.new
-board.place_ships_randomly
+board = BattleBoats::ShipDeployer.new.place_ships
 
 if ARGV[0] == "dev"
   interface = BattleBoats::DevConsoleUI.new
