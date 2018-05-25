@@ -20,16 +20,12 @@ module BattleBoats
       @symbol.red
     end
 
-    def hit_count
-      @hits
-    end
-
     def hit
       @hits += 1
     end
 
     def sunk?
-      hit_count == length
+      @hits == length
     end
   end
 end
