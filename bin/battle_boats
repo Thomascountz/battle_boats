@@ -2,11 +2,17 @@
 
 require 'battle_boats/engine'
 require 'battle_boats/board'
-require 'battle_boats/fleet'
-require 'battle_boats/coordinate'
+require 'battle_boats/dev_console_ui'
 
 board = BattleBoats::Board.new
 board.place_ships_randomly
-engine = BattleBoats::Engine.new(board: board)
+
+if ARGV[0] == "dev"
+  interface = BattleBoats::DevConsoleUI.new
+else
+  interface = BattleBoats::ConsoleUI.new
+end
+
+engine = BattleBoats::Engine.new(board: board, interface: interface)
 engine.start
 
