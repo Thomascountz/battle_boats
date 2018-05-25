@@ -6,22 +6,7 @@ require 'battle_boats/fleet'
 require 'battle_boats/coordinate'
 
 board = BattleBoats::Board.new
-
-BattleBoats::FLEET.each do |ship|
-  coin_toss = [1, 2].sample
-  random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
-  if coin_toss == 1
-    until board.place_ship_horizontally(coordinate: random_coordinate, ship: ship)
-      random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
-    end
-  else
-    until board.place_ship_vertically(coordinate: random_coordinate, ship: ship)
-      random_coordinate = BattleBoats::Coordinate.new(row: rand(0..9), column: rand(0..9))
-    end
-  end
-end
-
-
+board.place_ships_randomly
 engine = BattleBoats::Engine.new(board: board)
 engine.start
 

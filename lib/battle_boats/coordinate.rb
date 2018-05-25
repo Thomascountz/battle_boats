@@ -1,5 +1,13 @@
 module BattleBoats
   class Coordinate
+    class << self
+      def random(row:, column:)
+        row = rand(row)
+        column = rand(column)
+        new(row: row, column: column)
+      end
+    end
+
     attr_reader :row, :column
 
     def initialize(row: nil, column: nil)

@@ -29,10 +29,6 @@ module BattleBoats
       output.puts status_report
     end
 
-    def display_errors(errors)
-      output.puts errors
-    end
-
     def win
       output.puts "You've won the game!"
     end

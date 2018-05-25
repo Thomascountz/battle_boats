@@ -50,8 +50,8 @@ RSpec.describe BattleBoats::Engine do
         expect(console_ui).to receive(:get_coordinate).and_return(invalid_coordinate).ordered
 
         expect(board).to receive(:strike_position).with(coordinate: invalid_coordinate).and_return(false).ordered
-        expect(board).to receive(:error_messages).and_return(error_message).ordered
-        expect(console_ui).to receive(:display_errors).with(error_message).ordered
+        expect(board).to receive(:status_report).and_return(error_message).ordered
+        expect(console_ui).to receive(:display_status_report).with(error_message).ordered
 
         expect(console_ui).to receive(:get_coordinate).and_return(coordinate).ordered
 

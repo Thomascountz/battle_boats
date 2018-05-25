@@ -33,7 +33,7 @@ RSpec.describe BattleBoats::Cell do
     context "when a cell is not hit" do
       it "returns the string representation of an un-hit cell" do
         cell = BattleBoats::Cell.new
-        expect(cell.to_s).to include "."
+        expect(cell.to_s).to include "~"
       end
     end
 

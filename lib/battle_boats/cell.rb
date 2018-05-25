@@ -26,7 +26,7 @@ module BattleBoats
       if hit?
         occupant.symbol
       else
-        ".".blue
+        "~".blue
       end
     end
 
