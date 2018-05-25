@@ -24,9 +24,9 @@ module BattleBoats
 
     def to_s
       if hit?
-        occupant.symbol
+        occupant.to_ansi
       else
-        "~".blue
+        to_ansi
       end
     end
 
@@ -41,6 +41,12 @@ module BattleBoats
 
     def occupied?
       !occupant.empty?
+    end
+
+    private
+
+    def to_ansi
+      "~".blue
     end
   end
 end

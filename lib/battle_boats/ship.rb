@@ -8,7 +8,7 @@ module BattleBoats
     def initialize(name:, length:, symbol: "O")
       @name = name
       @length = length
-      @symbol = symbol.red
+      @symbol = symbol
       @hits = 0
     end
 
@@ -16,8 +16,8 @@ module BattleBoats
       false
     end
 
-    def hit_count
-      @hits
+    def to_ansi
+      @symbol.red
     end
 
     def hit
@@ -25,7 +25,7 @@ module BattleBoats
     end
 
     def sunk?
-      hit_count == length
+      @hits == length
     end
   end
 end

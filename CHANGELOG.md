@@ -1,3 +1,8 @@
+# 0.0.10
+### New Features
+- `battle_boats "dev"` will play in developer mode
+- Randomly placed ships will be visible 
+
 # 0.0.9
 ### New Features
 - Displays "won" message once all the ship are sunk
