@@ -8,12 +8,16 @@ module BattleBoats
     def initialize(name:, length:, symbol: "O")
       @name = name
       @length = length
-      @symbol = symbol.red
+      @symbol = symbol
       @hits = 0
     end
 
     def empty?
       false
+    end
+
+    def to_ansi
+      @symbol.red
     end
 
     def hit_count

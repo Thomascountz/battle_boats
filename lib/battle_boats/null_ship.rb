@@ -8,11 +8,15 @@ module BattleBoats
     def initialize
       @name = "nothing"
       @length = 1
-      @symbol = "X".yellow
+      @symbol = "X"
     end
 
     def empty?
       true
+    end
+
+    def to_ansi
+      @symbol.yellow
     end
 
     def hit; end
