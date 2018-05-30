@@ -45,14 +45,14 @@ module BattleBoats
       input_row = input[0]
       input_column = input[1]
       row = row_labels.index(input_row.upcase)
-      column = input_column.to_i
+      column = column_labels.index(input_column.upcase)
       BattleBoats::Coordinate.new(row: row, column: column)
     end
 
     def format_board(board)
       board_string = horizontal_line
       board_string << newline
-      board_string << column_label
+      board_string << header
       board_string << horizontal_line
       board_string << newline
       board.play_area.each_with_index do |row, row_number|
@@ -70,12 +70,21 @@ module BattleBoats
       board_string
     end
 
-    def column_label
-      "|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n"
+    def header
+      header = "#{pipe}     #{pipe}"
+      column_labels.each do |label|
+        header << "  #{label}  #{pipe}"
+      end
+      header << newline
+      header
     end
 
     def row_labels
       ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    end
+
+    def column_labels
+      ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     end
 
     def newline
