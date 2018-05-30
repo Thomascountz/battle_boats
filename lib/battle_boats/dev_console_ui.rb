@@ -5,6 +5,9 @@ require_relative "colorize"
 module BattleBoats
   class DevConsoleUI < ConsoleUI
     using Colorize
+
+    private
+
     def format_board(board)
       board_string = horizontal_line
       board_string << newline
