@@ -11,7 +11,7 @@ module BattleBoats
     def format_board(board)
       board_string = horizontal_line
       board_string << newline
-      board_string << column_label
+      board_string << header
       board_string << horizontal_line
       board_string << newline
       board.play_area.each_with_index do |row, row_number|
