@@ -11,19 +11,6 @@ module BattleBoats
       @play_area = create_play_area
     end
 
-    def place_ships_randomly
-      @fleet.ships.each do |ship|
-        coin_flip = ["heads", "tails"].sample
-        if coin_flip == "heads"
-          until place_ship_horizontally(coordinate: get_random_coordinate, ship: ship)
-          end
-        else
-          until place_ship_vertically(coordinate: get_random_coordinate, ship: ship)
-          end
-        end
-      end
-    end
-
     def strike_position(coordinate:)
       cell = cell_at(coordinate: coordinate)
       if cell.hit?
@@ -90,10 +77,6 @@ module BattleBoats
 
     def cells_are_occupiable(cells:)
       cells.none?(&:nil?) && cells.none?(&:occupied?)
-    end
-
-    def get_random_coordinate
-      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
   end
 end

@@ -1,33 +1,17 @@
 module BattleBoats
-  class ShipDeployer
-    def initialize(board: BattleBoats::Board.new,
-                   interface: BattleBoats::DevConsoleUI.new,
-                   fleet: BattleBoats::Fleet.new)
-      @board = board
-      @ships = fleet.ships
+  class ManualFleetDeployer
+    def initialize(interface: BattleBoats::DevConsoleUI.new)
       @interface = interface
+      @board = nil
     end
 
-    def place_ships_randomly
-      @ships.each do |ship|
-        coin_flip = ["heads", "tails"].sample
-        if coin_flip == "heads"
-          until @board.place_ship_horizontally(coordinate: get_random_coordinate, ship: ship)
-          end
-        else
-          until @board.place_ship_vertically(coordinate: get_random_coordinate, ship: ship)
-          end
-        end
-      end
-      @board
-    end
-
-    def place_ships_manually
-      @ships.each do |ship|
+    def deploy(fleet)
+      @board = BattleBoats::Board.new(fleet: fleet)
+      fleet.ships.each do |ship|
         place_ship(ship)
       end
       @interface.display_board(@board)
-      @board
+      board
     end
 
     private
@@ -52,21 +36,17 @@ module BattleBoats
 
     def get_coordinate(ship)
       puts "Where whould you like to place your #{ship.name}?"
-      coordinate = @interface.get_coordinate
+      @interface.get_coordinate
     end
 
     def get_orientation(ship)
       puts "Would you like to place your #{ship.name} horizontally or vertically? [h,v]"
-      orientation = gets.chomp.downcase
+      gets.chomp.downcase
     end
 
     def failure(ship)
       puts "FAIL"
       place_ship(ship)
-    end
-
-    def get_random_coordinate
-      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
   end
 end
