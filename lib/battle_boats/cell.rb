@@ -37,7 +37,13 @@ module BattleBoats
 
     def occupant=(ship)
       @occupant = ship
-      @state = BattleBoats::HiddenState.new(self)
+      if ship.class == BattleBoats::Ship
+        new_state = BattleBoats::HiddenState.new(self)
+        change_state(new_state)
+      else
+        new_state = BattleBoats::EmptyState.new(self)
+        change_state(new_state)
+      end
     end
   end
 end

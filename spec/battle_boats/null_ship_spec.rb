@@ -1,13 +1,6 @@
 require "battle_boats/null_ship"
 
 RSpec.describe BattleBoats::NullShip do
-  describe "#name" do
-    it "returns the name" do
-      ship = BattleBoats::NullShip.new
-
-      expect(ship.name).to eq "nothing"
-    end
-  end
   describe "#length" do
     it "returns the length" do
       ship = BattleBoats::NullShip.new
@@ -20,13 +13,6 @@ RSpec.describe BattleBoats::NullShip do
       ship = BattleBoats::NullShip.new
 
       expect(ship.symbol).to include "X"
-    end
-  end
-  describe "#to_ansi" do
-    it "returns a ANSI colorized symbol of a ship" do
-      ship = BattleBoats::NullShip.new
-
-      expect(ship.to_ansi).to include ship.symbol
     end
   end
   describe "#empty?" do

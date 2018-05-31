@@ -87,12 +87,13 @@ module BattleBoats
   end
 
   class MissedState < CellState
+    using Colorize
     def hit?
       true
     end
 
     def to_s
-      @cell.occupant.to_ansi
+      "X".yellow
     end
 
     def status_report
