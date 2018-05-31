@@ -15,13 +15,6 @@ RSpec.describe BattleBoats::NullShip do
       expect(ship.symbol).to include "X"
     end
   end
-  describe "#empty?" do
-    it "returns true" do
-      ship = BattleBoats::NullShip.new
-
-      expect(ship).to be_empty
-    end
-  end
   describe "#hit" do
     it "returns nil" do
       ship = BattleBoats::NullShip.new

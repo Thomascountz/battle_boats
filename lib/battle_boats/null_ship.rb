@@ -10,10 +10,6 @@ module BattleBoats
       @symbol = "X"
     end
 
-    def empty?
-      true
-    end
-
     def hit; end
 
     def sunk?; end

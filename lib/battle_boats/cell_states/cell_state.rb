@@ -13,9 +13,7 @@ module BattleBoats
 
     def status_report; end
 
-    def occupied?
-      !@cell.occupant.empty?
-    end
+    def occupied?; end
   end
 
   class HiddenState < CellState
@@ -33,6 +31,10 @@ module BattleBoats
     def to_s
       "~".blue
     end
+
+    def occupied?
+      true
+    end
   end
 
   class RevealedState < CellState
@@ -49,6 +51,10 @@ module BattleBoats
     def to_s
       @cell.occupant.to_ansi
     end
+
+    def occupied?
+      true
+    end
   end
 
   class EmptyState < CellState
@@ -64,6 +70,10 @@ module BattleBoats
 
     def to_s
       "~".blue
+    end
+
+    def occupied?
+      false
     end
   end
 
@@ -84,6 +94,10 @@ module BattleBoats
         "You hit my #{occupant_name}!"
       end
     end
+
+    def occupied?
+      true
+    end
   end
 
   class MissedState < CellState
@@ -98,6 +112,10 @@ module BattleBoats
 
     def status_report
       "You hit my nothing"
+    end
+
+    def occupied?
+      false
     end
   end
 end
