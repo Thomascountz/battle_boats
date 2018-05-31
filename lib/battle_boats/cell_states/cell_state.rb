@@ -54,7 +54,7 @@ module BattleBoats
   class EmptyState < CellState
     using Colorize
     def strike
-      new_state = BattleBoats::HitState.new(@cell)
+      new_state = BattleBoats::MissedState.new(@cell)
       @cell.change_state(new_state)
     end
 
@@ -93,6 +93,10 @@ module BattleBoats
 
     def to_s
       @cell.occupant.to_ansi
+    end
+
+    def status_report
+      "You hit my nothing"
     end
   end
 end
