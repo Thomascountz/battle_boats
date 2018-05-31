@@ -1,4 +1,3 @@
-require_relative "null_ship"
 require_relative "colorize"
 require_relative "cell_states/cell_state"
 
@@ -8,7 +7,7 @@ module BattleBoats
 
     def initialize
       @state = BattleBoats::EmptyState.new(self)
-      @occupant = BattleBoats::NullShip.new
+      @occupant = nil
     end
 
     def change_state(state)
@@ -37,13 +36,8 @@ module BattleBoats
 
     def occupant=(ship)
       @occupant = ship
-      if ship.class == BattleBoats::Ship
-        new_state = BattleBoats::HiddenState.new(self)
-        change_state(new_state)
-      else
-        new_state = BattleBoats::EmptyState.new(self)
-        change_state(new_state)
-      end
+      new_state = BattleBoats::HiddenState.new(self)
+      change_state(new_state)
     end
   end
 end
