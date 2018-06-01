@@ -1,8 +1,31 @@
 require "battle_boats/cell"
 require "battle_boats/ship"
-require "battle_boats/null_ship"
 
 RSpec.describe BattleBoats::Cell do
+  describe ".for" do
+    context "when state is ally" do
+      it "returns a new Cell" do
+        state = :ally
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
+    context "when state is enemy" do
+      it "returns a new Cell" do
+        state = :enemy
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
+    context "when state is nil" do
+      it "returns a new cell" do
+        state = nil
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
+  end
+
   context "when a new cell is initialized" do
     describe "#hit?" do
       it "returns false by default" do
@@ -50,10 +73,10 @@ RSpec.describe BattleBoats::Cell do
 
   describe "#occupant" do
     context "when initialized" do
-      it "defaults to be a null ship" do
+      it "defaults to nil" do
         cell = BattleBoats::Cell.new
 
-        expect(cell.occupant).to be_instance_of BattleBoats::NullShip
+        expect(cell.occupant).to be_nil
       end
     end
   end
@@ -63,7 +86,6 @@ RSpec.describe BattleBoats::Cell do
       context "without an occupant" do
         it 'returns a "miss" message' do
           cell = BattleBoats::Cell.new
-          cell.occupant = BattleBoats::NullShip.new
           cell.strike
 
           expect(cell.status_report.downcase).to include("hit", "nothing")
@@ -104,7 +126,6 @@ RSpec.describe BattleBoats::Cell do
     context "when the occupant is a null ship" do
       it "returns false" do
         cell = BattleBoats::Cell.new
-        cell.occupant = BattleBoats::NullShip.new
 
         expect(cell).to_not be_occupied
       end

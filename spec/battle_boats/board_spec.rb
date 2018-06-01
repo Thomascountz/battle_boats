@@ -22,20 +22,6 @@ RSpec.describe BattleBoats::Board do
     end
   end
 
-  describe "#place_ships_randomly" do
-    it "randomly places each ship in fleet in the play area" do
-      fleet = BattleBoats::Fleet.new
-      expected_cells_with_ships = fleet.ships.sum(&:length)
-      board = BattleBoats::Board.new(fleet: fleet)
-
-      board.place_ships_randomly
-
-      cells_with_ships = board.play_area.flatten.count(&:occupied?)
-
-      expect(cells_with_ships).to eq expected_cells_with_ships
-    end
-  end
-
   describe "#strike_position" do
     context "when the row and column are valid positions in the play area" do
       context "when the cell at the coordinate does not contain a ship" do
@@ -71,14 +57,22 @@ RSpec.describe BattleBoats::Board do
   describe "#game_over?" do
     context "when all ships in the fleet have not been sunk" do
       it "returns false" do
+        ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        cell = board.cell_at(coordinate: coordinate)
+        cell.occupant = ship
+
         expect(board.game_over?).to eq false
       end
     end
-    context "when all ships in the fleet have been sunk" do
+    context "when all occupied cells in the play are have been hit" do
       it "returns true" do
-        board.fleet.ships.each do |ship|
-          sink_ship(ship)
-        end
+        ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        cell = board.cell_at(coordinate: coordinate)
+        cell.occupant = ship
+        cell.strike
+
         expect(board.game_over?).to eq true
       end
     end
@@ -213,11 +207,6 @@ RSpec.describe BattleBoats::Board do
         expect(board.cell_at(coordinate: coordinate).occupant).to be ship
         expect(board.cell_at(coordinate: coordinate).occupant).to_not be ship2
       end
-    end
-  end
-  def sink_ship(ship)
-    ship.length.times do
-      ship.hit
     end
   end
 end

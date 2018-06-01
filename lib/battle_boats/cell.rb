@@ -1,52 +1,57 @@
-require_relative "null_ship"
 require_relative "colorize"
+require_relative "cell_states/cell_state"
 
 module BattleBoats
-  using Colorize
   class Cell
-    attr_accessor :occupant
+    class << self
+      def for(state:)
+        cell = Cell.new
+        case state
+        when :enemy
+          enemy_state = BattleBoats::EnemyState.new(cell)
+          cell.change_state(enemy_state)
+        when :ally
+          ally_state = BattleBoats::AllyState.new(cell)
+          cell.change_state(ally_state)
+        end
+        cell
+      end
+    end
+
+    attr_reader :occupant
 
     def initialize
-      @hit = false
-      @occupant = BattleBoats::NullShip.new
+      @state = BattleBoats::EnemyState.new(self)
+      @occupant = nil
+    end
+
+    def change_state(state)
+      @state = state
     end
 
     def hit?
-      @hit
+      @state.hit?
     end
 
     def strike
-      if !hit?
-        occupant.hit
-        @hit = true
-      end
+      @state.strike
     end
 
     def to_s
-      if hit?
-        occupant.to_ansi
-      else
-        to_ansi
-      end
+      @state.to_s
     end
 
     def status_report
-      occupant_name = occupant.name
-      if occupant.sunk?
-        "You sunk my #{occupant_name}!"
-      elsif hit?
-        "You hit my #{occupant_name}!"
-      end
+      @state.status_report
     end
 
     def occupied?
-      !occupant.empty?
+      @state.occupied?
     end
 
-    private
-
-    def to_ansi
-      "~".blue
+    def occupant=(ship)
+      @occupant = ship
+      @state.deploy
     end
   end
 end
