@@ -209,9 +209,4 @@ RSpec.describe BattleBoats::Board do
       end
     end
   end
-  def sink_ship(ship)
-    ship.length.times do
-      ship.hit
-    end
-  end
 end
