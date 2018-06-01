@@ -59,7 +59,7 @@ RSpec.describe BattleBoats::Board do
       it "returns false" do
         ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
         coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        cell =  board.cell_at(coordinate: coordinate)
+        cell = board.cell_at(coordinate: coordinate)
         cell.occupant = ship
 
         expect(board.game_over?).to eq false
@@ -69,10 +69,10 @@ RSpec.describe BattleBoats::Board do
       it "returns true" do
         ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
         coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        cell =  board.cell_at(coordinate: coordinate)
+        cell = board.cell_at(coordinate: coordinate)
         cell.occupant = ship
-        cell.strike  
-        
+        cell.strike
+
         expect(board.game_over?).to eq true
       end
     end
