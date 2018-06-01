@@ -8,7 +8,7 @@ module BattleBoats
     end
 
     def deploy(fleet)
-      @board = BattleBoats::Board.new(fleet: fleet)
+      @board = BattleBoats::Board.new
       fleet.ships.each do |ship|
         coin_flip = ["heads", "tails"].sample
         if coin_flip == "heads"

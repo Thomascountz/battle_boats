@@ -9,7 +9,7 @@ module BattleBoats
     end
 
     def deploy(fleet)
-      @board = BattleBoats::Board.new(fleet: fleet, state: :ally)
+      @board = BattleBoats::Board.new(state: :ally)
       fleet.ships.each do |ship|
         place_ship(ship)
       end

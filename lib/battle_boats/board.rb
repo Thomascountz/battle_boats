@@ -3,10 +3,9 @@ require "battle_boats/fleet"
 
 module BattleBoats
   class Board
-    attr_reader :fleet, :play_area, :status_report
+    attr_reader :play_area, :status_report
 
-    def initialize(fleet: BattleBoats::Fleet.new, state: :enemy)
-      @fleet = fleet
+    def initialize(state: :enemy)
       @status_report = ""
       @play_area = create_play_area(state: state)
     end
@@ -24,7 +23,7 @@ module BattleBoats
     end
 
     def game_over?
-      fleet.ships.all?(&:sunk?)
+      @play_area.flatten.select(&:occupied?).all?(&:hit?)
     end
 
     def cell_at(coordinate:)

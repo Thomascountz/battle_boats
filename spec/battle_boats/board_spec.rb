@@ -57,14 +57,22 @@ RSpec.describe BattleBoats::Board do
   describe "#game_over?" do
     context "when all ships in the fleet have not been sunk" do
       it "returns false" do
+        ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        cell =  board.cell_at(coordinate: coordinate)
+        cell.occupant = ship
+
         expect(board.game_over?).to eq false
       end
     end
-    context "when all ships in the fleet have been sunk" do
+    context "when all occupied cells in the play are have been hit" do
       it "returns true" do
-        board.fleet.ships.each do |ship|
-          sink_ship(ship)
-        end
+        ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        cell =  board.cell_at(coordinate: coordinate)
+        cell.occupant = ship
+        cell.strike  
+        
         expect(board.game_over?).to eq true
       end
     end
