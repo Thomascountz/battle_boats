@@ -2,6 +2,23 @@ require "battle_boats/cell"
 require "battle_boats/ship"
 
 RSpec.describe BattleBoats::Cell do
+  describe ".for" do
+    context "when state is ally" do
+      it "returns a new Cell" do
+        state = :ally
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
+    context "when state is enemy" do
+      it "returns a new Cell" do
+        state = :enemy
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
+  end
+
   context "when a new cell is initialized" do
     describe "#hit?" do
       it "returns false by default" do

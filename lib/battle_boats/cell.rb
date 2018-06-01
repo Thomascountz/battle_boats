@@ -3,6 +3,21 @@ require_relative "cell_states/cell_state"
 
 module BattleBoats
   class Cell
+    class << self
+      def for(state:)
+        cell = Cell.new
+        case state
+        when :enemy
+          enemy_state = BattleBoats::EnemyState.new(cell)
+          cell.change_state(enemy_state)
+        when :ally
+          ally_state = BattleBoats::AllyState.new(cell)
+          cell.change_state(ally_state)
+        end
+        cell
+      end
+    end
+
     attr_reader :occupant
 
     def initialize
