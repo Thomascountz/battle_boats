@@ -21,7 +21,7 @@ module BattleBoats
     attr_reader :occupant
 
     def initialize
-      @state = BattleBoats::EmptyState.new(self)
+      @state = BattleBoats::EnemyState.new(self)
       @occupant = nil
     end
 
@@ -51,8 +51,7 @@ module BattleBoats
 
     def occupant=(ship)
       @occupant = ship
-      new_state = BattleBoats::HiddenState.new(self)
-      change_state(new_state)
+      @state.deploy
     end
   end
 end

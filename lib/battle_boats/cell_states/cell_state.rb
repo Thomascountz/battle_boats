@@ -37,7 +37,7 @@ module BattleBoats
     end
   end
 
-  class RevealedState < CellState
+  class DeployedState < CellState
     def strike
       new_state = BattleBoats::HitState.new(@cell)
       @cell.change_state(new_state)
@@ -57,7 +57,7 @@ module BattleBoats
     end
   end
 
-  class EmptyState < CellState
+  class EnemyState < CellState
     using Colorize
     def strike
       new_state = BattleBoats::MissedState.new(@cell)
@@ -74,6 +74,36 @@ module BattleBoats
 
     def occupied?
       false
+    end
+
+    def deploy
+      new_state = BattleBoats::HiddenState.new(@cell)
+      @cell.change_state(new_state)
+    end
+  end
+
+  class AllyState < CellState
+    using Colorize
+    def strike
+      new_state = BattleBoats::MissedState.new(@cell)
+      @cell.change_state(new_state)
+    end
+
+    def hit?
+      false
+    end
+
+    def to_s
+      "~".blue
+    end
+
+    def occupied?
+      false
+    end
+
+    def deploy
+      new_state = BattleBoats::DeployedState.new(@cell)
+      @cell.change_state(new_state)
     end
   end
 
