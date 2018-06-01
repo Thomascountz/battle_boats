@@ -26,11 +26,11 @@ module BattleBoats
       coordinate = @interface.get_coordinate
       @interface.prompt_ship_placement_orientation(ship)
       orientation = @interface.get_orientation
-      if orientation == :horizontal 
+      if orientation == :horizontal
         if !@board.place_ship_horizontally(coordinate: coordinate, ship: ship)
           failure(ship)
         end
-      elsif orientation == :vertical 
+      elsif orientation == :vertical
         if !@board.place_ship_vertically(coordinate: coordinate, ship: ship)
           failure(ship)
         end

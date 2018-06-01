@@ -30,7 +30,7 @@ RSpec.describe BattleBoats::ConsoleUI do
       name = "battleship"
       length = 4
       ship = BattleBoats::Ship.new(name: name, length: length)
-      
+
       console_ui.display_ship_data(ship)
 
       expect(output.string.downcase).to include(name, length.to_s)
@@ -42,7 +42,7 @@ RSpec.describe BattleBoats::ConsoleUI do
       name = "battleship"
       length = 4
       ship = BattleBoats::Ship.new(name: name, length: length)
-      
+
       console_ui.prompt_ship_placement_coordinate(ship)
 
       expect(output.string.downcase).to include(name, "where")
@@ -54,7 +54,7 @@ RSpec.describe BattleBoats::ConsoleUI do
       name = "battleship"
       length = 4
       ship = BattleBoats::Ship.new(name: name, length: length)
-      
+
       console_ui.prompt_ship_placement_orientation(ship)
 
       expect(output.string.downcase).to include(name, "horizontally", "vertically")
@@ -123,7 +123,7 @@ RSpec.describe BattleBoats::ConsoleUI do
 
         console_ui.get_orientation
 
-        expect(output.string.downcase).to include("invalid") 
+        expect(output.string.downcase).to include("invalid")
       end
     end
   end

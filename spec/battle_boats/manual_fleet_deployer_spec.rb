@@ -15,7 +15,7 @@ RSpec.describe BattleBoats::ManualFleetDeployer do
         ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "foo")
         ships = [ship]
         coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        orientation = :horizontal 
+        orientation = :horizontal
 
         allow(fleet).to receive(:ships).and_return ships
         allow(interface).to receive(:display_board)
@@ -24,7 +24,6 @@ RSpec.describe BattleBoats::ManualFleetDeployer do
         allow(interface).to receive(:get_coordinate).and_return coordinate
         allow(interface).to receive(:prompt_ship_placement_orientation).with ship
         allow(interface).to receive(:get_orientation).and_return orientation
-
 
         board = manual_fleet_deployer.deploy(fleet)
 
@@ -40,7 +39,7 @@ RSpec.describe BattleBoats::ManualFleetDeployer do
         ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "foo")
         ships = [ship]
         coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        orientation = :vertical 
+        orientation = :vertical
 
         allow(fleet).to receive(:ships).and_return ships
         allow(interface).to receive(:display_board)
@@ -49,7 +48,6 @@ RSpec.describe BattleBoats::ManualFleetDeployer do
         allow(interface).to receive(:get_coordinate).and_return coordinate
         allow(interface).to receive(:prompt_ship_placement_orientation).with ship
         allow(interface).to receive(:get_orientation).and_return orientation
-
 
         board = manual_fleet_deployer.deploy(fleet)
 
