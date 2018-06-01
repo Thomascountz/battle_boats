@@ -15,6 +15,28 @@ module BattleBoats
       output.puts format_board(board)
     end
 
+    def display_ship_data(ship)
+      output.puts "SHIP: #{ship.name}, LENGTH: #{ship.length}"
+    end
+
+    def prompt_ship_placement_coordinate(ship)
+      output.puts "Where whould you like to place your #{ship.name}?"
+    end
+
+    def prompt_ship_placement_orientation(ship)
+      output.puts "Would you like to place your #{ship.name} horizontally or vertically? [h,v]"
+    end
+
+    def get_orientation
+      output.puts "Target orientation: "
+      user_input = input.gets.chomp.downcase
+      until user_input == "h" || user_input == "v"
+        output.puts "Orientation invalid."
+        user_input = input.gets.chomp.downcase
+      end
+      input_to_orientation(user_input)
+    end
+
     def get_coordinate
       output.puts "Target coordinate: "
       user_input = input.gets.chomp
@@ -47,6 +69,15 @@ module BattleBoats
       row = row_labels.index(input_row.upcase)
       column = input_column.to_i
       BattleBoats::Coordinate.new(row: row, column: column)
+    end
+
+    def input_to_orientation(input)
+      case input
+      when "h"
+        :horizontal
+      when "v"
+        :vertical
+      end
     end
 
     def format_board(board)

@@ -3,10 +3,14 @@
 require "battle_boats/engine"
 require "battle_boats/fleet"
 require "battle_boats/random_fleet_deployer"
+require "battle_boats/manual_fleet_deployer"
 
-fleet = BattleBoats::Fleet.new
-board = BattleBoats::RandomFleetDeployer.new.deploy(fleet)
+enemy_fleet = BattleBoats::Fleet.new
+enemy_board = BattleBoats::RandomFleetDeployer.new.deploy(enemy_fleet)
 
-engine = BattleBoats::Engine.new(board: board)
+ally_fleet = BattleBoats::Fleet.new
+ally_board = BattleBoats::ManualFleetDeployer.new.deploy(ally_fleet)
+
+engine = BattleBoats::Engine.new(board: enemy_board)
 engine.start
 
