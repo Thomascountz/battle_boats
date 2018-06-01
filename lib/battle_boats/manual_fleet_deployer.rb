@@ -3,13 +3,13 @@ require_relative "board"
 
 module BattleBoats
   class ManualFleetDeployer
-    def initialize(interface: BattleBoats::ConsoleUI.new)
+    def initialize(interface: BattleBoats::ConsoleUI.new,
+                   board: BattleBoats::Board.new(state: :ally))
       @interface = interface
-      @board = nil
+      @board = board
     end
 
     def deploy(fleet)
-      @board = BattleBoats::Board.new(state: :ally)
       fleet.ships.each do |ship|
         place_ship(ship)
       end

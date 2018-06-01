@@ -3,12 +3,11 @@ require_relative "coordinate"
 
 module BattleBoats
   class RandomFleetDeployer
-    def initialize
-      @board = nil
+    def initialize(board: BattleBoats::Board.new(state: :enemy))
+      @board = board
     end
 
     def deploy(fleet)
-      @board = BattleBoats::Board.new
       fleet.ships.each do |ship|
         coin_flip = ["heads", "tails"].sample
         if coin_flip == "heads"
