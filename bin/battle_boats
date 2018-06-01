@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'battle_boats/engine'
-require 'battle_boats/board'
+require "battle_boats/engine"
+require "battle_boats/fleet"
+require "battle_boats/random_fleet_deployer"
 
-board = BattleBoats::Board.new
-board.place_ships_randomly
+fleet = BattleBoats::Fleet.new
+board = BattleBoats::RandomFleetDeployer.new.deploy(fleet)
 
 engine = BattleBoats::Engine.new(board: board)
 engine.start
