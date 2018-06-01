@@ -17,6 +17,13 @@ RSpec.describe BattleBoats::Cell do
         expect(result).to be_a BattleBoats::Cell
       end
     end
+    context "when state is nil" do
+      it "returns a new cell" do
+        state = nil
+        result = BattleBoats::Cell.for(state: state)
+        expect(result).to be_a BattleBoats::Cell
+      end
+    end
   end
 
   context "when a new cell is initialized" do
