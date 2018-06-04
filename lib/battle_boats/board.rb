@@ -15,7 +15,7 @@ module BattleBoats
       @fleet.ships.each do |ship|
         until ship_deployed?(ship)
           coordinate = get_random_coordinate
-          orientation = [:horizontal, :vertical].sample
+          orientation = %i[horizontal vertical].sample
           if orientation == :horizontal
             place_ship_horizontally(coordinate: coordinate, ship: ship)
           elsif orientation == :vertical
