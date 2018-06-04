@@ -16,8 +16,7 @@ module BattleBoats
         until ship_deployed?(ship: ship)
           coordinate = get_random_coordinate
           orientation = %i[horizontal vertical].sample
-          cells = cells_to_occupy(ship: ship, coordinate: coordinate, orientation: orientation)
-          deploy_ship(ship: ship, cells: cells)
+          deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
         end
       end
     end
@@ -60,8 +59,8 @@ module BattleBoats
       play_area.flatten.map(&:occupant).include?(ship)
     end
 
-    def cells_to_occupy(ship:, coordinate:, orientation:)
-      Array.new(ship.length) do |offset|
+    def deploy_ship(ship:, coordinate:, orientation:)
+      cells = Array.new(ship.length) do |offset|
         if orientation == :horizontal
           next_coordinate = coordinate.right(offset: offset)
         elsif orientation == :vertical
@@ -69,9 +68,7 @@ module BattleBoats
         end
         cell_at(coordinate: next_coordinate)
       end
-    end
 
-    def deploy_ship(ship:, cells:)
       if cells_occupiable?(cells: cells)
         cells.each do |cell|
           cell.occupant = ship
