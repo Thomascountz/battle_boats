@@ -13,8 +13,8 @@ module BattleBoats
 
     def place_ships_randomly
       @fleet.ships.each do |ship|
-        coin_flip = ["heads", "tails"].sample
-        if coin_flip == "heads"
+        orientation = ["horizontal", "vertical"].shuffle
+        if orientation == "horizontal"
           until place_ship_horizontally(coordinate: get_random_coordinate, ship: ship)
           end
         else
