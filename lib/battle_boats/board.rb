@@ -13,28 +13,11 @@ module BattleBoats
 
     def place_ships_randomly
       @fleet.ships.each do |ship|
-        until play_area.flatten.map(&:occupant).include?(ship)
+        until ship_deployed?(ship: ship)
           coordinate = get_random_coordinate
           orientation = %i[horizontal vertical].sample
-          if orientation == :horizontal
-            cells_to_occupy = Array.new(ship.length) do |offset|
-              cell_at(coordinate: coordinate.right(offset: offset))
-            end
-            if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-              cells_to_occupy.each do |cell|
-                cell.occupant = ship
-              end
-            end
-          elsif orientation == :vertical
-            cells_to_occupy = Array.new(ship.length) do |offset|
-              cell_at(coordinate: coordinate.up(offset: offset))
-            end
-            if cells_to_occupy.none?(&:nil?) && cells_to_occupy.none?(&:occupied?)
-              cells_to_occupy.each do |cell|
-                cell.occupant = ship
-              end
-            end
-          end
+          cells = cells_to_occupy(ship: ship, coordinate: coordinate, orientation: orientation)
+          deploy_ship(ship: ship, cells: cells)
         end
       end
     end
@@ -71,6 +54,33 @@ module BattleBoats
         end
         row
       end
+    end
+
+    def ship_deployed?(ship:)
+      play_area.flatten.map(&:occupant).include?(ship)
+    end
+
+    def cells_to_occupy(ship:, coordinate:, orientation:)
+      Array.new(ship.length) do |offset|
+        if orientation == :horizontal
+          next_coordinate = coordinate.right(offset: offset)
+        elsif orientation == :vertical
+          next_coordinate = coordinate.up(offset: offset)
+        end
+        cell_at(coordinate: next_coordinate)
+      end
+    end
+
+    def deploy_ship(ship:, cells:)
+      if cells_occupiable?(cells: cells)
+        cells.each do |cell|
+          cell.occupant = ship
+        end
+      end
+    end
+
+    def cells_occupiable?(cells:)
+      cells.none?(&:nil?) && cells.none?(&:occupied?)
     end
 
     def within_range?(coordinate:)
