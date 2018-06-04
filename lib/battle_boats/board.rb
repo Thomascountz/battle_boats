@@ -13,7 +13,7 @@ module BattleBoats
 
     def place_ships_randomly
       @fleet.ships.each do |ship|
-        until ship_deployed?(ship)
+        until ship_deployed?(ship: ship)
           coordinate = get_random_coordinate
           orientation = %i[horizontal vertical].sample
           if orientation == :horizontal
@@ -79,7 +79,7 @@ module BattleBoats
       coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
     end
 
-    def ship_deployed?(ship)
+    def ship_deployed?(ship:)
       play_area.flatten.map(&:occupant).include?(ship)
     end
 
