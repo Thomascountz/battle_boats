@@ -88,8 +88,6 @@ module BattleBoats
         cells.each do |cell|
           cell.occupant = ship
         end
-      else
-        false
       end
     end
 
