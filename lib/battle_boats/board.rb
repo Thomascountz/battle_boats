@@ -13,12 +13,13 @@ module BattleBoats
 
     def place_ships_randomly
       @fleet.ships.each do |ship|
-        coin_flip = ["heads", "tails"].sample
-        if coin_flip == "heads"
-          until place_ship_horizontally(coordinate: get_random_coordinate, ship: ship)
-          end
-        else
-          until place_ship_vertically(coordinate: get_random_coordinate, ship: ship)
+        until ship_deployed?(ship: ship)
+          coordinate = get_random_coordinate
+          orientation = %i[horizontal vertical].sample
+          if orientation == :horizontal
+            place_ship_horizontally(coordinate: coordinate, ship: ship)
+          elsif orientation == :vertical
+            place_ship_vertically(coordinate: coordinate, ship: ship)
           end
         end
       end
@@ -78,13 +79,15 @@ module BattleBoats
       coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
     end
 
+    def ship_deployed?(ship:)
+      play_area.flatten.map(&:occupant).include?(ship)
+    end
+
     def occupy_cells(cells:, ship:)
       if cells_are_occupiable(cells: cells)
         cells.each do |cell|
           cell.occupant = ship
         end
-      else
-        false
       end
     end
 
