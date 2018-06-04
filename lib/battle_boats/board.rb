@@ -19,7 +19,7 @@ module BattleBoats
           if orientation == :horizontal
             place_ship_horizontally(coordinate: coordinate, ship: ship)
           elsif orientation == :vertical
-            place_ship_vertically(coordinate: get_random_coordinate, ship: ship)
+            place_ship_vertically(coordinate: coordinate, ship: ship)
           end
         end
       end
