@@ -42,6 +42,7 @@ RSpec.describe BattleBoats::Coordinate do
       coordinate_above = coordinate.up(offset: offset)
 
       expect(coordinate_above.row).to eq 7
+      expect(coordinate_above.column).to eq 1
     end
   end
   describe "#right" do
@@ -54,6 +55,7 @@ RSpec.describe BattleBoats::Coordinate do
       coordinate_to_the_right = coordinate.right(offset: offset)
 
       expect(coordinate_to_the_right.column).to eq 4
+      expect(coordinate_to_the_right.row).to eq 1
     end
   end
 end
