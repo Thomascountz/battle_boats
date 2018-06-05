@@ -14,8 +14,6 @@ module BattleBoats
         row.each do |cell|
           board_string << if cell.occupied? && cell.hit?
                             "  #{cell.occupant.symbol.red}  "
-                          elsif cell.occupied? && enemy
-                            "  #{'~'.blue}  "
                           elsif cell.occupied? && !enemy
                             "  #{cell.occupant.symbol.yellow}  "
                           elsif cell.hit?
