@@ -31,6 +31,8 @@ module BattleBoats
           next_coordinate = coordinate.right(offset: offset)
         elsif orientation == :vertical
           next_coordinate = coordinate.up(offset: offset)
+        else
+          return nil
         end
         cell_at(coordinate: next_coordinate)
       end

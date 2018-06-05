@@ -146,7 +146,7 @@ RSpec.describe BattleBoats::Board do
   end
 
   describe "#attempt_to_deploy_ship" do
-    context "placing a ship horizontally"
+    context "when orientaiton is horizontal"
     context "when the ship fits at the given coordinate" do
       context "when no ship is already occupying the space" do
         it "deploys the ship" do
@@ -188,7 +188,7 @@ RSpec.describe BattleBoats::Board do
       end
     end
   end
-  context "placing a ship vertically" do
+  context "when orientaiton is horizontal" do
     context "when the ship fits at the given coordinate" do
       context "when no ship is already occupying the space" do
         it "deploys the ship" do
@@ -222,6 +222,18 @@ RSpec.describe BattleBoats::Board do
         ship = BattleBoats::Ship.new(name: "Ship", length: 11)
         coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
         orientation = :vertical
+        board = BattleBoats::Board.new
+
+        board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+
+        expect(board.ship_deployed?(ship: ship)).to be false
+      end
+    end
+    context "when orientation is neither horizontal nor verical" do
+      it "does not deploy the ship" do
+        ship = BattleBoats::Ship.new(name: "Ship", length: 11)
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        orientation = :nil
         board = BattleBoats::Board.new
 
         board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
