@@ -13,6 +13,6 @@ else
   interface = BattleBoats::ConsoleUI.new
 end
 
-engine = BattleBoats::Engine.new(board: board, interface: interface)
+engine = BattleBoats::Engine.new(enemy_board: board, interface: interface)
 engine.start
 
