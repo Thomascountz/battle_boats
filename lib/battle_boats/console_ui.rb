@@ -26,7 +26,7 @@ module BattleBoats
     def get_coordinate
       output.puts "Target coordinate: "
       user_input = input.gets.chomp
-      until valid_coordinate_input?(user_input)
+      until board_formatter.valid_coordinate_input?(user_input)
         output.puts "Coordinate invalid."
         user_input = input.gets.chomp
       end
@@ -55,10 +55,6 @@ module BattleBoats
 
     attr_reader :output, :input, :board_formatter
 
-    def valid_coordinate_input?(coordinate)
-      coordinate =~ /^[A-J][0-9]$/i
-    end
-
     def valid_orientation_input?(orientation)
       orientation =~ /^[h{1}|v{1}]$/i
     end
@@ -66,8 +62,8 @@ module BattleBoats
     def input_to_coordinate(input)
       input_row = input[0]
       input_column = input[1]
-      row = row_labels.index(input_row.upcase)
-      column = input_column.to_i
+      row = board_formatter.row_label_to_row_number(input_row)
+      column = board_formatter.column_label_to_column_number(input_column)
       BattleBoats::Coordinate.new(row: row, column: column)
     end
 
@@ -77,10 +73,6 @@ module BattleBoats
       elsif input =~ /^[v{1}]$/i
         :vertical
       end
-    end
-
-    def row_labels
-      ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     end
   end
 end
