@@ -17,7 +17,7 @@ module BattleBoats
                           elsif cell.occupied? && !enemy
                             "  #{cell.occupant.symbol.yellow}  "
                           elsif cell.hit?
-                            "  #{cell.occupant.symbol.yellow}  "
+                            "  #{'X'.yellow}  "
                           else
                             "  #{'~'.blue}  "
                           end
