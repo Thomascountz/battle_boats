@@ -52,6 +52,47 @@ RSpec.describe BattleBoats::ConsoleUI do
     end
   end
 
+  describe "#get_orientation" do
+    context "when the orientation input is valid" do
+      context "when the input is horizontal" do
+        it "returns a horizontal symbol" do
+          horizontal_input = "h"
+          input = StringIO.new(horizontal_input.to_s)
+          console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+          result = console_ui.get_orientation
+
+          expect(output.string.downcase).to include("orientation")
+          expect(result).to eq(:horizontal)
+        end
+      end
+      context "when the input is vertical" do
+        it "returns a vertical symbol" do
+          vertical_input = "v"
+          input = StringIO.new(vertical_input.to_s)
+          console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+          result = console_ui.get_orientation
+
+          expect(output.string.downcase).to include("orientation")
+          expect(result).to eq(:vertical)
+        end
+      end
+    end
+    context "when the orientation input is invalid" do
+      it "prompts the user again for an orientation" do
+        invalid_input = "foo"
+        valid_input = "h"
+        input = StringIO.new("#{invalid_input}\n#{valid_input}")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+        console_ui.get_orientation
+
+        expect(output.string.downcase).to include("invalid")
+      end
+    end
+  end
+
   describe "#display_status_report" do
     it "displays the given status report to the output" do
       status_report = "STATUS REPORT"

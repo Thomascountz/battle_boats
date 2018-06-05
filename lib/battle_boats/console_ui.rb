@@ -26,7 +26,17 @@ module BattleBoats
     end
 
     def get_orientation
-      raise NotImplementedError
+      output.puts "Orientation [hV]:"
+      user_input = input.gets.chomp
+      until user_input =~ /^[h{1}|v{1}]$/i
+        output.puts "Orientation invalid."
+        user_input = input.gets.chomp
+      end
+      if user_input =~ /^[h{1}]$/i
+        :horizontal
+      elsif user_input =~ /^[v{1}]$/i
+        :vertical
+      end
     end
 
     def display_status_report(status_report)
