@@ -25,7 +25,7 @@ RSpec.describe BattleBoats::Engine do
       allow(ally_board).to receive(:fleet).and_return(fleet)
       allow(fleet).to receive(:ships).and_return(ships)
       allow(ally_board).to receive(:ship_deployed?).with(ship: ship).and_return(false, true)
-      allow(console_ui).to receive(:display_board).with(ally_board)
+      allow(console_ui).to receive(:display_ally_board).with(ally_board)
       allow(console_ui).to receive(:get_coordinate).and_return(coordinate)
       allow(console_ui).to receive(:get_orientation).and_return(orientation)
 
