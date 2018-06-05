@@ -7,5 +7,6 @@ board = BattleBoats::Board.new
 board.place_ships_randomly
 
 engine = BattleBoats::Engine.new(enemy_board: board)
+engine.deploy_ally_ships
 engine.start
 
