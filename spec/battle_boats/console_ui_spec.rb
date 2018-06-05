@@ -16,64 +16,36 @@ RSpec.describe BattleBoats::ConsoleUI do
   end
 
   describe "#display_board" do
-    context "when the board is empty" do
-      context "when there are no misses" do
-        it "prints an empty board to output" do
-          board = BattleBoats::Board.new
-          console_ui.display_board(board)
+    it "outputs result from board formatter" do
+      board_formatter = instance_double(BattleBoats::BoardFormatter)
+      output = StringIO.new
+      board = instance_double(BattleBoats::Board)
+      board_string = "board string"
+      console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                              board_formatter: board_formatter)
 
-          expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
+      allow(board_formatter).to receive(:format_board).with(board).and_return(board_string)
 
-          expect(output.string).to include expected
-        end
-      end
-      context "when there has been a miss" do
-        it "shows the cell as having been hit" do
-          board = BattleBoats::Board.new
-          coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-          cell = board.cell_at(coordinate: coordinate)
-          cell.strike
+      console_ui.display_board(board)
 
-          console_ui.display_board(board)
-
-          expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[33mX\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
-
-          expect(output.string).to include expected
-        end
-      end
+      expect(output.string).to include board_string
     end
+  end
 
-    context "when an enemy ship is on the board" do
-      context "when the ship is not hit" do
-        it "prints an empty-looking board to output" do
-          board = BattleBoats::Board.new
-          ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
-          coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-          board.cell_at(coordinate: coordinate).occupant = ship
+  describe "#display_ally_board" do
+    it "outputs result from board formatter" do
+      board_formatter = instance_double(BattleBoats::BoardFormatter)
+      output = StringIO.new
+      board = instance_double(BattleBoats::Board)
+      board_string = "board string"
+      console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                              board_formatter: board_formatter)
 
-          console_ui.display_board(board)
+      allow(board_formatter).to receive(:format_board).with(board, enemy: false).and_return(board_string)
 
-          expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
+      console_ui.display_ally_board(board)
 
-          expect(output.string).to include expected
-        end
-      end
-    end
-    context "when the ship is hit" do
-      it "shows the ship as having been hit" do
-        board = BattleBoats::Board.new
-        ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
-        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        cell = board.cell_at(coordinate: coordinate)
-        cell.occupant = ship
-        cell.strike
-
-        console_ui.display_board(board)
-
-        expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[31mF\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
-
-        expect(output.string).to include expected
-      end
+      expect(output.string).to include board_string
     end
   end
 
