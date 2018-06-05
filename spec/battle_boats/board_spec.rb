@@ -123,6 +123,28 @@ RSpec.describe BattleBoats::Board do
     end
   end
 
+  describe "#ship_deployed?" do
+    context "when the ship is deployed on the board" do
+      it "returns true" do
+        ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+        board = BattleBoats::Board.new
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+
+        board.cell_at(coordinate: coordinate).occupant = ship
+
+        expect(board.ship_deployed?(ship: ship)).to be true
+      end
+    end
+    context "when the ship is not deployed on the board" do
+      it "returns false" do
+        ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+        board = BattleBoats::Board.new
+
+        expect(board.ship_deployed?(ship: ship)).to be false
+      end
+    end
+  end
+
   describe "#attempt_to_deploy_ship" do
     context "placing a ship horizontally"
     context "when the ship fits at the given coordinate" do
