@@ -15,6 +15,7 @@ module BattleBoats
       ally_board.fleet.ships.each do |ship|
         until ally_board.ship_deployed?(ship: ship)
           interface.display_ally_board(ally_board)
+          interface.display_ship_data(ship: ship)
           coordinate = interface.get_coordinate
           orientation = interface.get_orientation
           ally_board.attempt_to_deploy_ship(ship: ship,
