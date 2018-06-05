@@ -16,7 +16,7 @@ module BattleBoats
         until ship_deployed?(ship: ship)
           coordinate = get_random_coordinate
           orientation = %i[horizontal vertical].sample
-          deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+          attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
         end
       end
     end
@@ -59,7 +59,7 @@ module BattleBoats
       play_area.flatten.map(&:occupant).include?(ship)
     end
 
-    def deploy_ship(ship:, coordinate:, orientation:)
+    def attempt_to_deploy_ship(ship:, coordinate:, orientation:)
       cells = Array.new(ship.length) do |offset|
         if orientation == :horizontal
           next_coordinate = coordinate.right(offset: offset)
