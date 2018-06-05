@@ -23,6 +23,11 @@ module BattleBoats
       output.puts board_formatter.format_board(board, enemy: false)
     end
 
+    def display_ship_data(ship:)
+      output.puts "SHIP: #{ship.name}  ALIAS: #{ship.symbol}"
+      output.puts "LENGTH: #{ship.length}"
+    end
+
     def get_coordinate
       output.puts "Target coordinate: "
       user_input = input.gets.chomp

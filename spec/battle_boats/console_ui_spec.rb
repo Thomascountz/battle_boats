@@ -49,6 +49,19 @@ RSpec.describe BattleBoats::ConsoleUI do
     end
   end
 
+  describe "#display_ship_data" do
+    it "outputs information about the given ship" do
+      name = "Ship"
+      length = 4
+      symbol = "S"
+      ship = BattleBoats::Ship.new(name: name, length: length, symbol: symbol)
+
+      console_ui.display_ship_data(ship: ship)
+
+      expect(output.string).to include(name, length.to_s, symbol)
+    end
+  end
+
   describe "#get_coordinate" do
     context "when the coordinate input is valid" do
       it "returns a coordinate based on user input" do
