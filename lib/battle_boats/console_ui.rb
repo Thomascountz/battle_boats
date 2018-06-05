@@ -25,6 +25,10 @@ module BattleBoats
       input_to_coordinate(user_input)
     end
 
+    def get_orientation
+      raise NotImplementedError
+    end
+
     def display_status_report(status_report)
       output.puts status_report
     end

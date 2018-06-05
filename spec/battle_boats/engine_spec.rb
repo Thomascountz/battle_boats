@@ -1,14 +1,39 @@
 require "battle_boats/engine"
 require "battle_boats/console_ui"
 require "battle_boats/board"
+require "battle_boats/fleet"
 require "battle_boats/coordinate"
 
 RSpec.describe BattleBoats::Engine do
   let(:console_ui) { instance_double(BattleBoats::ConsoleUI) }
+  let(:ally_board) { instance_double(BattleBoats::Board) }
+  let(:fleet) { instance_double(BattleBoats::Fleet) }
   let(:enemy_board) { instance_double(BattleBoats::Board) }
   subject(:engine) do
     described_class.new(interface: console_ui,
-                        board: enemy_board)
+                        enemy_board: enemy_board,
+                        ally_board: ally_board)
+  end
+
+  describe "deploy_ally_ships" do
+    it "walks the user through deploying their ships until all ships are deployed" do
+      ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
+      ships = [ship]
+      coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+      orientation = :horizontal
+
+      allow(ally_board).to receive(:fleet).and_return(fleet)
+      allow(fleet).to receive(:ships).and_return(ships)
+      allow(ally_board).to receive(:ship_deployed?).with(ship: ship).and_return(false, true)
+      allow(console_ui).to receive(:display_board).with(ally_board)
+      allow(console_ui).to receive(:get_coordinate).and_return(coordinate)
+      allow(console_ui).to receive(:get_orientation).and_return(orientation)
+
+      expect(ally_board).to receive(:attempt_to_deploy_ship).with(ship: ship,
+                                                                  coordinate: coordinate,
+                                                                  orientation: orientation)
+      engine.deploy_ally_ships
+    end
   end
 
   describe "#start" do
