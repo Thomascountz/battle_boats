@@ -1,3 +1,5 @@
+require_relative "colorize"
+
 module BattleBoats
   class BoardFormatter
     using Colorize
