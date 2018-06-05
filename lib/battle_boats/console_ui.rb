@@ -28,15 +28,11 @@ module BattleBoats
     def get_orientation
       output.puts "Orientation [hV]:"
       user_input = input.gets.chomp
-      until user_input =~ /^[h{1}|v{1}]$/i
+      until valid_orientation_input?(user_input)
         output.puts "Orientation invalid."
         user_input = input.gets.chomp
       end
-      if user_input =~ /^[h{1}]$/i
-        :horizontal
-      elsif user_input =~ /^[v{1}]$/i
-        :vertical
-      end
+      input_to_orientation(user_input)
     end
 
     def display_status_report(status_report)
@@ -55,12 +51,24 @@ module BattleBoats
       coordinate =~ /^[A-J][0-9]$/i
     end
 
+    def valid_orientation_input?(orientation)
+      orientation =~ /^[h{1}|v{1}]$/i
+    end
+
     def input_to_coordinate(input)
       input_row = input[0]
       input_column = input[1]
       row = row_labels.index(input_row.upcase)
       column = input_column.to_i
       BattleBoats::Coordinate.new(row: row, column: column)
+    end
+
+    def input_to_orientation(input)
+      if input =~ /^[h{1}]$/i
+        :horizontal
+      elsif input =~ /^[v{1}]$/i
+        :vertical
+      end
     end
 
     def format_board(board)
