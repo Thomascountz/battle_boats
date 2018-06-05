@@ -21,6 +21,27 @@ module BattleBoats
       end
     end
 
+    def ship_deployed?(ship:)
+      play_area.flatten.map(&:occupant).include?(ship)
+    end
+
+    def attempt_to_deploy_ship(ship:, coordinate:, orientation:)
+      cells = Array.new(ship.length) do |offset|
+        if orientation == :horizontal
+          next_coordinate = coordinate.right(offset: offset)
+        elsif orientation == :vertical
+          next_coordinate = coordinate.up(offset: offset)
+        end
+        cell_at(coordinate: next_coordinate)
+      end
+
+      if cells_occupiable?(cells: cells)
+        cells.each do |cell|
+          cell.occupant = ship
+        end
+      end
+    end
+
     def strike_position(coordinate:)
       cell = cell_at(coordinate: coordinate)
       if cell.hit?
@@ -52,27 +73,6 @@ module BattleBoats
           row << BattleBoats::Cell.new
         end
         row
-      end
-    end
-
-    def ship_deployed?(ship:)
-      play_area.flatten.map(&:occupant).include?(ship)
-    end
-
-    def attempt_to_deploy_ship(ship:, coordinate:, orientation:)
-      cells = Array.new(ship.length) do |offset|
-        if orientation == :horizontal
-          next_coordinate = coordinate.right(offset: offset)
-        elsif orientation == :vertical
-          next_coordinate = coordinate.up(offset: offset)
-        end
-        cell_at(coordinate: next_coordinate)
-      end
-
-      if cells_occupiable?(cells: cells)
-        cells.each do |cell|
-          cell.occupant = ship
-        end
       end
     end
 
