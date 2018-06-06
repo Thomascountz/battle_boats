@@ -1,3 +1,10 @@
+# 0.2.0
+### New Features 
+- After placing your ships, you'll see two boards, yours and the computer player's
+- The computer play fires back at random, immediately after you strike it
+- Your ships are now green, instead of yellow
+- You can lose the game to the computer
+
 # 0.1.0
 ### New Features 
 - At the start of the game, the user will be prompted to place their ships on their board
