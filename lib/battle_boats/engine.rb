@@ -49,7 +49,11 @@ module BattleBoats
       end
       interface.display_ally_board(ally_board)
       interface.display_board(enemy_board)
-      interface.win
+      if enemy_board.game_over?
+        interface.win
+      else
+        interface.lose
+      end
     end
 
     private

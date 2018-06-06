@@ -65,12 +65,13 @@ RSpec.describe BattleBoats::Engine do
         expect(enemy_board).to receive(:get_random_coordinate).and_return(coordinate).ordered
         expect(ally_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
 
-        expect(enemy_board).to receive(:game_over?).and_return(true)
+        expect(enemy_board).to receive(:game_over?).and_return(true).ordered
 
         expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
         expect(console_ui).to receive(:display_board).with(enemy_board).ordered
 
-        expect(console_ui).to receive(:win)
+        expect(enemy_board).to receive(:game_over?).and_return(true).ordered
+        expect(console_ui).to receive(:win).ordered
 
         engine.start
       end
@@ -119,7 +120,39 @@ RSpec.describe BattleBoats::Engine do
         expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
         expect(console_ui).to receive(:display_board).with(enemy_board).ordered
 
-        expect(console_ui).to receive(:win)
+        expect(enemy_board).to receive(:game_over?).and_return(true).ordered
+        expect(console_ui).to receive(:win).ordered
+
+        engine.start
+      end
+    end
+
+    context "when the player wins" do
+      it "displays a win message" do
+        expect(console_ui).to receive(:greet).ordered
+        expect(enemy_board).to receive(:game_over?).and_return(true).ordered
+
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
+        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(enemy_board).to receive(:game_over?).and_return(true).ordered
+        expect(console_ui).to receive(:win).ordered
+
+        engine.start
+      end
+    end
+
+    context "when the player loses" do
+      it "displays a lose message" do
+        expect(console_ui).to receive(:greet).ordered
+        expect(enemy_board).to receive(:game_over?).and_return(false).ordered
+        expect(ally_board).to receive(:game_over?).and_return(true).ordered
+
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
+        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(enemy_board).to receive(:game_over?).and_return(false).ordered
+        expect(console_ui).to receive(:lose).ordered
 
         engine.start
       end
