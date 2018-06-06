@@ -1,3 +1,7 @@
+# 0.0.20
+### Breaking Change
+- `battle_boats "dev"` is not longer available
+
 # 0.0.10
 ### New Features
 - `battle_boats "dev"` will play in developer mode
