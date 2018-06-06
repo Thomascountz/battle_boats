@@ -32,8 +32,8 @@ module BattleBoats
       board_string
     end
 
-    def valid_coordinate_input?(coordinate)
-      coordinate =~ /^[A-J][0-9]$/i
+    def valid_coordinate_input?(input)
+      input =~ /^[A-J][0-9]$/i
     end
 
     def input_to_coordinate(input)
