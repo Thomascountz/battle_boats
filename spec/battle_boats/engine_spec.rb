@@ -44,17 +44,33 @@ RSpec.describe BattleBoats::Engine do
         column = "column"
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
         status_report = "STATUS REPORT"
+        ally_status_report = "ALLY STATUS REPORT"
 
         expect(console_ui).to receive(:greet).ordered
+
         expect(enemy_board).to receive(:game_over?).and_return(false)
-        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
-        expect(console_ui).to receive(:get_coordinate).and_return(coordinate).ordered
-        expect(enemy_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
+        expect(ally_board).to receive(:game_over?).and_return(false)
+
+        expect(ally_board).to receive(:status_report).and_return(ally_status_report).ordered
+        expect(console_ui).to receive(:display_status_report).with(ally_status_report).ordered
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
+
         expect(enemy_board).to receive(:status_report).and_return(status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(status_report).ordered
-        expect(enemy_board).to receive(:game_over?).and_return(true)
-        expect(console_ui).to receive(:win)
         expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(console_ui).to receive(:get_coordinate).and_return(coordinate).ordered
+        expect(enemy_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
+
+        expect(enemy_board).to receive(:get_random_coordinate).and_return(coordinate).ordered
+        expect(ally_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
+
+        expect(enemy_board).to receive(:game_over?).and_return(true)
+
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
+        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(console_ui).to receive(:win)
 
         engine.start
       end
@@ -63,30 +79,47 @@ RSpec.describe BattleBoats::Engine do
     context "when the row and column input is invalid" do
       it "prompts the user to re-enter a row and column" do
         row = "row"
+        invalid_row = "invalid row"
         column = "column"
-        invalid_row = "invalid_row"
         coordinate = BattleBoats::Coordinate.new(row: row, column: column)
         invalid_coordinate = BattleBoats::Coordinate.new(row: invalid_row, column: column)
-        error_message = "error"
+        error_message = "ERROR"
         status_report = "STATUS REPORT"
+        ally_status_report = "ALLY STATUS REPORT"
 
         expect(console_ui).to receive(:greet).ordered
-        expect(enemy_board).to receive(:game_over?).and_return(false)
-        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
-        expect(console_ui).to receive(:get_coordinate).and_return(invalid_coordinate).ordered
 
+        expect(enemy_board).to receive(:game_over?).and_return(false)
+        expect(ally_board).to receive(:game_over?).and_return(false)
+
+        expect(ally_board).to receive(:status_report).and_return(ally_status_report).ordered
+        expect(console_ui).to receive(:display_status_report).with(ally_status_report).ordered
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
+
+        expect(enemy_board).to receive(:status_report).and_return(status_report).ordered
+        expect(console_ui).to receive(:display_status_report).with(status_report).ordered
+        expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(console_ui).to receive(:get_coordinate).and_return(invalid_coordinate).ordered
         expect(enemy_board).to receive(:strike_position).with(coordinate: invalid_coordinate).and_return(false).ordered
         expect(enemy_board).to receive(:status_report).and_return(error_message).ordered
         expect(console_ui).to receive(:display_status_report).with(error_message).ordered
 
         expect(console_ui).to receive(:get_coordinate).and_return(coordinate).ordered
-
         expect(enemy_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
-        expect(enemy_board).to receive(:status_report).and_return(status_report).ordered
-        expect(console_ui).to receive(:display_status_report).with(status_report).ordered
+
+        expect(enemy_board).to receive(:get_random_coordinate).and_return(invalid_coordinate).ordered
+        expect(ally_board).to receive(:strike_position).with(coordinate: invalid_coordinate).and_return(false).ordered
+
+        expect(enemy_board).to receive(:get_random_coordinate).and_return(coordinate).ordered
+        expect(ally_board).to receive(:strike_position).with(coordinate: coordinate).and_return(true).ordered
+
         expect(enemy_board).to receive(:game_over?).and_return(true)
-        expect(console_ui).to receive(:win)
+
+        expect(console_ui).to receive(:display_ally_board).with(ally_board).ordered
         expect(console_ui).to receive(:display_board).with(enemy_board).ordered
+
+        expect(console_ui).to receive(:win)
 
         engine.start
       end
