@@ -146,99 +146,100 @@ RSpec.describe BattleBoats::Board do
   end
 
   describe "#attempt_to_deploy_ship" do
-    context "when orientaiton is horizontal"
-    context "when the ship fits at the given coordinate" do
-      context "when no ship is already occupying the space" do
-        it "deploys the ship" do
-          ship = BattleBoats::Ship.new(name: "Ship", length: 1)
-          coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-          orientation = :horizontal
-          board = BattleBoats::Board.new
+    context "when orientaiton is horizontal" do
+      context "when the ship fits at the given coordinate" do
+        context "when no ship is already occupying the space" do
+          it "deploys the ship" do
+            ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+            coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+            orientation = :horizontal
+            board = BattleBoats::Board.new
 
-          board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+            board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
 
-          expect(board.ship_deployed?(ship: ship)).to be true
+            expect(board.ship_deployed?(ship: ship)).to be true
+          end
+        end
+        context "when there is a ship already occupying the space" do
+          it "does not deploy the ship" do
+            ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+            new_ship = BattleBoats::Ship.new(name: "New Ship", length: 1)
+            coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+            orientation = :horizontal
+            board = BattleBoats::Board.new
+
+            board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+            board.attempt_to_deploy_ship(ship: new_ship, coordinate: coordinate, orientation: orientation)
+
+            expect(board.ship_deployed?(ship: new_ship)).to be false
+          end
+        end
+        context "when the ship does not fit at the given coordinate" do
+          it "does not deploy the ship" do
+            ship = BattleBoats::Ship.new(name: "Ship", length: 11)
+            coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+            orientation = :horizontal
+            board = BattleBoats::Board.new
+
+            board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+
+            expect(board.ship_deployed?(ship: ship)).to be false
+          end
         end
       end
-      context "when there is a ship already occupying the space" do
+    end
+    context "when orientaiton is vertical" do
+      context "when the ship fits at the given coordinate" do
+        context "when no ship is already occupying the space" do
+          it "deploys the ship" do
+            ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+            coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+            orientation = :vertical
+            board = BattleBoats::Board.new
+
+            board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+
+            expect(board.ship_deployed?(ship: ship)).to be true
+          end
+        end
+        context "when there is a ship already occupying the space" do
+          it "does not deploy the ship" do
+            ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+            new_ship = BattleBoats::Ship.new(name: "New Ship", length: 1)
+            coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+            orientation = :vertical
+            board = BattleBoats::Board.new
+
+            board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+            board.attempt_to_deploy_ship(ship: new_ship, coordinate: coordinate, orientation: orientation)
+
+            expect(board.ship_deployed?(ship: new_ship)).to be false
+          end
+        end
+      end
+      context "when the ship does not fit at the given coordinate" do
         it "does not deploy the ship" do
-          ship = BattleBoats::Ship.new(name: "Ship", length: 1)
-          new_ship = BattleBoats::Ship.new(name: "New Ship", length: 1)
-          coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-          orientation = :horizontal
-          board = BattleBoats::Board.new
-
-          board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
-          board.attempt_to_deploy_ship(ship: new_ship, coordinate: coordinate, orientation: orientation)
-
-          expect(board.ship_deployed?(ship: new_ship)).to be false
-        end
-      end
-    end
-    context "when the ship does not fit at the given coordinate" do
-      it "does not deploy the ship" do
-        ship = BattleBoats::Ship.new(name: "Ship", length: 11)
-        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        orientation = :horizontal
-        board = BattleBoats::Board.new
-
-        board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
-
-        expect(board.ship_deployed?(ship: ship)).to be false
-      end
-    end
-  end
-  context "when orientaiton is horizontal" do
-    context "when the ship fits at the given coordinate" do
-      context "when no ship is already occupying the space" do
-        it "deploys the ship" do
-          ship = BattleBoats::Ship.new(name: "Ship", length: 1)
+          ship = BattleBoats::Ship.new(name: "Ship", length: 11)
           coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
           orientation = :vertical
           board = BattleBoats::Board.new
 
           board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
 
-          expect(board.ship_deployed?(ship: ship)).to be true
+          expect(board.ship_deployed?(ship: ship)).to be false
         end
       end
-      context "when there is a ship already occupying the space" do
+      context "when orientation is neither horizontal nor verical" do
         it "does not deploy the ship" do
-          ship = BattleBoats::Ship.new(name: "Ship", length: 1)
-          new_ship = BattleBoats::Ship.new(name: "New Ship", length: 1)
+          ship = BattleBoats::Ship.new(name: "Ship", length: 11)
           coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-          orientation = :vertical
+          orientation = :nil
           board = BattleBoats::Board.new
 
           board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
-          board.attempt_to_deploy_ship(ship: new_ship, coordinate: coordinate, orientation: orientation)
 
-          expect(board.ship_deployed?(ship: new_ship)).to be false
+          expect(board.ship_deployed?(ship: ship)).to be false
         end
-      end
-    end
-    context "when the ship does not fit at the given coordinate" do
-      it "does not deploy the ship" do
-        ship = BattleBoats::Ship.new(name: "Ship", length: 11)
-        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        orientation = :vertical
-        board = BattleBoats::Board.new
-
-        board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
-
-        expect(board.ship_deployed?(ship: ship)).to be false
-      end
-    end
-    context "when orientation is neither horizontal nor verical" do
-      it "does not deploy the ship" do
-        ship = BattleBoats::Ship.new(name: "Ship", length: 11)
-        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
-        orientation = :nil
-        board = BattleBoats::Board.new
-
-        board.attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
-
-        expect(board.ship_deployed?(ship: ship)).to be false
       end
     end
   end
