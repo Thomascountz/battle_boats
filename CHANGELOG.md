@@ -1,3 +1,8 @@
+# 0.1.0
+### New Features 
+- At the start of the game, the user will be prompted to place their ships on their board
+- After all ships are place, the game will continue as it previously had
+
 # 0.0.20
 ### Breaking Change
 - `battle_boats "dev"` is not longer available
