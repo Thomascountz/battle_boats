@@ -1,8 +1,11 @@
-require "battle_boats/version"
-require "battle_boats/engine"
-require "battle_boats/console_ui"
 require "battle_boats/board"
-
-module BattleBoats
-  # Your code goes here...
-end
+require "battle_boats/board_formatter"
+require "battle_boats/cell"
+require "battle_boats/colorize"
+require "battle_boats/console_ui"
+require "battle_boats/coordinate"
+require "battle_boats/engine"
+require "battle_boats/fleet"
+require "battle_boats/null_ship"
+require "battle_boats/ship"
+require "battle_boats/version"

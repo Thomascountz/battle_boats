@@ -1,5 +1,7 @@
 require "battle_boats/console_ui"
 require "battle_boats/board"
+require "battle_boats/ship"
+require "battle_boats/coordinate"
 
 RSpec.describe BattleBoats::ConsoleUI do
   let(:output) { StringIO.new }
@@ -14,40 +16,130 @@ RSpec.describe BattleBoats::ConsoleUI do
   end
 
   describe "#display_board" do
-    it "prints the board to output" do
-      board = BattleBoats::Board.new
+    it "outputs result from board formatter" do
+      board_formatter = instance_double(BattleBoats::BoardFormatter)
+      output = StringIO.new
+      board = instance_double(BattleBoats::Board)
+      board_string = "board string"
+      console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                              board_formatter: board_formatter)
+
+      allow(board_formatter).to receive(:format_board).with(board, hide_ships: true).and_return(board_string)
+
       console_ui.display_board(board)
 
-      expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
+      expect(output.string).to include board_string
+    end
+  end
 
-      expect(output.string).to include expected
+  describe "#display_ally_board" do
+    it "outputs result from board formatter" do
+      board_formatter = instance_double(BattleBoats::BoardFormatter)
+      output = StringIO.new
+      board = instance_double(BattleBoats::Board)
+      board_string = "board string"
+      console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                              board_formatter: board_formatter)
+
+      allow(board_formatter).to receive(:format_board).with(board, hide_ships: false).and_return(board_string)
+
+      console_ui.display_ally_board(board)
+
+      expect(output.string).to include board_string
+    end
+  end
+
+  describe "#display_ship_data" do
+    it "outputs information about the given ship" do
+      name = "Ship"
+      length = 4
+      symbol = "S"
+      ship = BattleBoats::Ship.new(name: name, length: length, symbol: symbol)
+
+      console_ui.display_ship_data(ship: ship)
+
+      expect(output.string).to include(name, length.to_s, symbol)
     end
   end
 
   describe "#get_coordinate" do
     context "when the coordinate input is valid" do
       it "returns a coordinate based on user input" do
-        valid_input = "A1"
+        valid_input = "valid"
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        board_formatter = instance_double(BattleBoats::BoardFormatter)
         input = StringIO.new("#{valid_input}\n")
-        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+        console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                                input: input,
+                                                board_formatter: board_formatter)
+
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(valid_input).and_return(true)
+        allow(board_formatter).to receive(:input_to_coordinate).with(valid_input).and_return(coordinate)
 
         result = console_ui.get_coordinate
 
         expect(output.string).to include("coordinate")
-        expect(result.row).to eq(0)
-        expect(result.column).to eq(1)
+        expect(result).to be_instance_of BattleBoats::Coordinate
       end
     end
     context "when the coordinate input is invalid" do
       it "prompts the user again for a coordinate" do
-        invalid_input = "A11"
-        valid_input = "A1"
+        invalid_input = "valid"
+        valid_input = "invalid"
+        board_formatter = instance_double(BattleBoats::BoardFormatter)
         input = StringIO.new("#{invalid_input}\n#{valid_input}")
-        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+        console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                                input: input,
+                                                board_formatter: board_formatter)
+
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(invalid_input).and_return(false)
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(valid_input).and_return(true)
+        allow(board_formatter).to receive(:input_to_coordinate)
 
         console_ui.get_coordinate
 
         expect(output.string).to include("invalid")
+      end
+    end
+  end
+
+  describe "#get_orientation" do
+    context "when the orientation input is valid" do
+      context "when the input is horizontal" do
+        it "returns a horizontal symbol" do
+          horizontal_input = "h"
+          input = StringIO.new(horizontal_input.to_s)
+          console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+          result = console_ui.get_orientation
+
+          expect(output.string.downcase).to include("orientation")
+          expect(result).to eq(:horizontal)
+        end
+      end
+      context "when the input is vertical" do
+        it "returns a vertical symbol" do
+          vertical_input = "v"
+          input = StringIO.new(vertical_input.to_s)
+          console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+          result = console_ui.get_orientation
+
+          expect(output.string.downcase).to include("orientation")
+          expect(result).to eq(:vertical)
+        end
+      end
+    end
+    context "when the orientation input is invalid" do
+      it "prompts the user again for an orientation" do
+        invalid_input = "foo"
+        valid_input = "h"
+        input = StringIO.new("#{invalid_input}\n#{valid_input}")
+        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+
+        console_ui.get_orientation
+
+        expect(output.string.downcase).to include("invalid")
       end
     end
   end

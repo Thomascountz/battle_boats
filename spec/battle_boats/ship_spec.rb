@@ -25,13 +25,6 @@ RSpec.describe BattleBoats::Ship do
       expect(ship.symbol).to include symbol
     end
   end
-  describe "#to_ansi" do
-    it "returns a ANSI colorized symbol of a ship" do
-      ship = BattleBoats::Ship.new(name: nil, length: nil)
-
-      expect(ship.to_ansi).to include ship.symbol
-    end
-  end
   describe "#empty?" do
     it "returns false" do
       ship = BattleBoats::Ship.new(name: nil, length: nil)

@@ -29,25 +29,6 @@ RSpec.describe BattleBoats::Cell do
     end
   end
 
-  describe "#to_s" do
-    context "when a cell is not hit" do
-      it "returns the string representation of an un-hit cell" do
-        cell = BattleBoats::Cell.new
-        expect(cell.to_s).to include "~"
-      end
-    end
-
-    context "when a cell has already been hit" do
-      it "returns the string representation of a hit cell" do
-        cell = BattleBoats::Cell.new
-        symbol = "G"
-        cell.occupant = BattleBoats::Ship.new(name: nil, length: nil, symbol: symbol)
-        cell.strike
-        expect(cell.to_s).to include symbol
-      end
-    end
-  end
-
   describe "#occupant" do
     context "when initialized" do
       it "defaults to be a null ship" do
