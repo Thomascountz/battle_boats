@@ -1,10 +1,14 @@
 require_relative "coordinate"
+require_relative "board_formatter"
 
 module BattleBoats
   class ConsoleUI
-    def initialize(output: $stdout, input: $stdin)
+    def initialize(output: $stdout,
+                   input: $stdin,
+                   board_formatter: BattleBoats::BoardFormatter.new)
       @output = output
       @input = input
+      @board_formatter = board_formatter
     end
 
     def greet
@@ -12,17 +16,36 @@ module BattleBoats
     end
 
     def display_board(board)
-      output.puts format_board(board)
+      output.puts board_formatter.format_board(board)
+    end
+
+    def display_ally_board(board)
+      output.puts board_formatter.format_board(board, enemy: false)
+    end
+
+    def display_ship_data(ship:)
+      output.puts "SHIP: #{ship.name} ALIAS: #{ship.symbol}"
+      output.puts "LENGTH: #{ship.length}"
     end
 
     def get_coordinate
       output.puts "Target coordinate: "
       user_input = input.gets.chomp
-      until valid_input?(user_input)
+      until board_formatter.valid_coordinate_input?(user_input)
         output.puts "Coordinate invalid."
         user_input = input.gets.chomp
       end
       input_to_coordinate(user_input)
+    end
+
+    def get_orientation
+      output.puts "Orientation [hV]:"
+      user_input = input.gets.chomp
+      until valid_orientation_input?(user_input)
+        output.puts "Orientation invalid."
+        user_input = input.gets.chomp
+      end
+      input_to_orientation(user_input)
     end
 
     def display_status_report(status_report)
@@ -35,59 +58,26 @@ module BattleBoats
 
     private
 
-    attr_reader :output, :input
+    attr_reader :output, :input, :board_formatter
 
-    def valid_input?(coordinate)
-      coordinate =~ /^[A-J][0-9]$/i
+    def valid_orientation_input?(orientation)
+      orientation =~ /^[h{1}|v{1}]$/i
     end
 
     def input_to_coordinate(input)
       input_row = input[0]
       input_column = input[1]
-      row = row_labels.index(input_row.upcase)
-      column = input_column.to_i
+      row = board_formatter.row_label_to_row_number(input_row)
+      column = board_formatter.column_label_to_column_number(input_column)
       BattleBoats::Coordinate.new(row: row, column: column)
     end
 
-    def format_board(board)
-      board_string = horizontal_line
-      board_string << newline
-      board_string << column_label
-      board_string << horizontal_line
-      board_string << newline
-      board.play_area.each_with_index do |row, row_number|
-        board_string << pipe
-        board_string << "  #{row_labels[row_number]}  "
-        board_string << pipe
-        row.each do |cell|
-          board_string << "  #{cell}  "
-          board_string << pipe
-        end
-        board_string << newline
-        board_string << horizontal_line
-        board_string << newline
+    def input_to_orientation(input)
+      if input =~ /^[h{1}]$/i
+        :horizontal
+      elsif input =~ /^[v{1}]$/i
+        :vertical
       end
-      board_string
-    end
-
-    def column_label
-      "|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n"
-    end
-
-    def row_labels
-      ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    end
-
-    def newline
-      "\n"
-    end
-
-    def horizontal_line
-      "-" * 67
-    end
-
-    def pipe
-      "|"
     end
   end
 end
