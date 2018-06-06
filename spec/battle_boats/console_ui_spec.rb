@@ -24,7 +24,7 @@ RSpec.describe BattleBoats::ConsoleUI do
       console_ui = BattleBoats::ConsoleUI.new(output: output,
                                               board_formatter: board_formatter)
 
-      allow(board_formatter).to receive(:format_board).with(board).and_return(board_string)
+      allow(board_formatter).to receive(:format_board).with(board, hide_ships: true).and_return(board_string)
 
       console_ui.display_board(board)
 
@@ -41,7 +41,7 @@ RSpec.describe BattleBoats::ConsoleUI do
       console_ui = BattleBoats::ConsoleUI.new(output: output,
                                               board_formatter: board_formatter)
 
-      allow(board_formatter).to receive(:format_board).with(board, enemy: false).and_return(board_string)
+      allow(board_formatter).to receive(:format_board).with(board, hide_ships: false).and_return(board_string)
 
       console_ui.display_ally_board(board)
 

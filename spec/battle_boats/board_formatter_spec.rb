@@ -72,7 +72,7 @@ RSpec.describe BattleBoats::BoardFormatter do
           coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
           board.cell_at(coordinate: coordinate).occupant = ship
 
-          result = board_formatter.format_board(board, enemy: false)
+          result = board_formatter.format_board(board, hide_ships: false)
 
           expected = "-------------------------------------------------------------------\n|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |\n-------------------------------------------------------------------\n|  A  |  \e[33mF\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |  \e[34m~\e[0m  |\n-------------------------------------------------------------------\n"
 

@@ -3,7 +3,7 @@ require_relative "colorize"
 module BattleBoats
   class BoardFormatter
     using Colorize
-    def format_board(board, enemy: true)
+    def format_board(board, hide_ships: true)
       board_string = horizontal_line
       board_string << newline
       board_string << column_header
@@ -16,7 +16,7 @@ module BattleBoats
         row.each do |cell|
           board_string << if cell.occupied? && cell.hit?
                             "  #{cell.occupant.symbol.red}  "
-                          elsif cell.occupied? && !enemy
+                          elsif cell.occupied? && !hide_ships
                             "  #{cell.occupant.symbol.yellow}  "
                           elsif cell.hit?
                             "  #{'X'.yellow}  "

@@ -16,11 +16,11 @@ module BattleBoats
     end
 
     def display_board(board)
-      output.puts board_formatter.format_board(board)
+      output.puts board_formatter.format_board(board, hide_ships: true)
     end
 
     def display_ally_board(board)
-      output.puts board_formatter.format_board(board, enemy: false)
+      output.puts board_formatter.format_board(board, hide_ships: false)
     end
 
     def display_ship_data(ship:)
