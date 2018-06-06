@@ -1,7 +1,4 @@
-require_relative "colorize"
-
 module BattleBoats
-  using Colorize
   class Ship
     attr_reader :name, :length, :symbol
 
@@ -14,10 +11,6 @@ module BattleBoats
 
     def empty?
       false
-    end
-
-    def to_ansi
-      @symbol.red
     end
 
     def hit
