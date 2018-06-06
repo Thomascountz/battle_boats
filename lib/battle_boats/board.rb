@@ -16,11 +16,30 @@ module BattleBoats
         until ship_deployed?(ship: ship)
           coordinate = get_random_coordinate
           orientation = %i[horizontal vertical].sample
-          if orientation == :horizontal
-            place_ship_horizontally(coordinate: coordinate, ship: ship)
-          elsif orientation == :vertical
-            place_ship_vertically(coordinate: coordinate, ship: ship)
-          end
+          attempt_to_deploy_ship(ship: ship, coordinate: coordinate, orientation: orientation)
+        end
+      end
+    end
+
+    def ship_deployed?(ship:)
+      play_area.flatten.map(&:occupant).include?(ship)
+    end
+
+    def attempt_to_deploy_ship(ship:, coordinate:, orientation:)
+      cells = Array.new(ship.length) do |offset|
+        if orientation == :horizontal
+          next_coordinate = coordinate.right(offset: offset)
+        elsif orientation == :vertical
+          next_coordinate = coordinate.up(offset: offset)
+        else
+          return nil
+        end
+        cell_at(coordinate: next_coordinate)
+      end
+
+      if cells_occupiable?(cells: cells)
+        cells.each do |cell|
+          cell.occupant = ship
         end
       end
     end
@@ -47,22 +66,6 @@ module BattleBoats
       end
     end
 
-    def place_ship_horizontally(coordinate:, ship:)
-      cells_to_occupy = Array.new(ship.length) do |offset|
-        cell_at(coordinate: coordinate.right(offset: offset))
-      end
-
-      occupy_cells(cells: cells_to_occupy, ship: ship)
-    end
-
-    def place_ship_vertically(coordinate:, ship:)
-      cells_to_occupy = Array.new(ship.length) do |offset|
-        cell_at(coordinate: coordinate.up(offset: offset))
-      end
-
-      occupy_cells(cells: cells_to_occupy, ship: ship)
-    end
-
     private
 
     def create_play_area
@@ -75,24 +78,12 @@ module BattleBoats
       end
     end
 
+    def cells_occupiable?(cells:)
+      cells.none?(&:nil?) && cells.none?(&:occupied?)
+    end
+
     def within_range?(coordinate:)
       coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
-    end
-
-    def ship_deployed?(ship:)
-      play_area.flatten.map(&:occupant).include?(ship)
-    end
-
-    def occupy_cells(cells:, ship:)
-      if cells_are_occupiable(cells: cells)
-        cells.each do |cell|
-          cell.occupant = ship
-        end
-      end
-    end
-
-    def cells_are_occupiable(cells:)
-      cells.none?(&:nil?) && cells.none?(&:occupied?)
     end
 
     def get_random_coordinate
