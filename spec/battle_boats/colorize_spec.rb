@@ -32,4 +32,14 @@ RSpec.describe "BattleBoats::Colorize" do
       expect(result).to eq("\e[33mhello\e[0m")
     end
   end
+
+  describe "#green" do
+    it "wraps the string in the ANSI code to output it as green" do
+      string = "hello"
+
+      result = string.green
+
+      expect(result).to eq("\e[32mhello\e[0m")
+    end
+  end
 end
