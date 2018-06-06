@@ -48,8 +48,8 @@ RSpec.describe BattleBoats::Engine do
 
         expect(console_ui).to receive(:greet).ordered
 
-        expect(enemy_board).to receive(:game_over?).and_return(false)
-        expect(ally_board).to receive(:game_over?).and_return(false)
+        expect(enemy_board).to receive(:game_over?).and_return(false).ordered
+        expect(ally_board).to receive(:game_over?).and_return(false).ordered
 
         expect(ally_board).to receive(:status_report).and_return(ally_status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(ally_status_report).ordered
@@ -89,8 +89,8 @@ RSpec.describe BattleBoats::Engine do
 
         expect(console_ui).to receive(:greet).ordered
 
-        expect(enemy_board).to receive(:game_over?).and_return(false)
-        expect(ally_board).to receive(:game_over?).and_return(false)
+        expect(enemy_board).to receive(:game_over?).and_return(false).ordered
+        expect(ally_board).to receive(:game_over?).and_return(false).ordered
 
         expect(ally_board).to receive(:status_report).and_return(ally_status_report).ordered
         expect(console_ui).to receive(:display_status_report).with(ally_status_report).ordered
