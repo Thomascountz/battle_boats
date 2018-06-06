@@ -16,8 +16,10 @@ module BattleBoats
         until ally_board.ship_deployed?(ship: ship)
           interface.display_ally_board(ally_board)
           interface.display_ship_data(ship: ship)
+
           coordinate = interface.get_coordinate
           orientation = interface.get_orientation
+
           ally_board.attempt_to_deploy_ship(ship: ship,
                                             coordinate: coordinate,
                                             orientation: orientation)
@@ -27,7 +29,7 @@ module BattleBoats
 
     def start
       interface.greet
-      until enemy_board.game_over? || ally_board.game_over?
+      until game_over?
 
         interface.display_status_report(ally_board.status_report)
         interface.display_ally_board(ally_board)
@@ -47,6 +49,16 @@ module BattleBoats
         end
 
       end
+      end_game
+    end
+
+    private
+
+    def game_over?
+      enemy_board.game_over? || ally_board.game_over?
+    end
+
+    def end_game
       interface.display_ally_board(ally_board)
       interface.display_board(enemy_board)
       if enemy_board.game_over?
@@ -55,8 +67,6 @@ module BattleBoats
         interface.lose
       end
     end
-
-    private
 
     attr_reader :interface, :enemy_board, :ally_board
   end
