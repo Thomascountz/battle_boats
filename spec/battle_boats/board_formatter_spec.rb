@@ -103,7 +103,7 @@ RSpec.describe BattleBoats::BoardFormatter do
       it "returns truthy" do
         valid_input = "A1"
         result = board_formatter.valid_coordinate_input?(valid_input)
-        
+
         expect(result).to be_truthy
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe BattleBoats::BoardFormatter do
       it "returns falsey" do
         valid_input = "A11"
         result = board_formatter.valid_coordinate_input?(valid_input)
-        
+
         expect(result).to be_falsey
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe BattleBoats::BoardFormatter do
 
   describe "#column_label_to_column_number" do
     it "returns a row number based on row labels" do
-      column_number = 0 
+      column_number = 0
       result = board_formatter.column_label_to_column_number(column_number)
 
       expect(result).to be 0
