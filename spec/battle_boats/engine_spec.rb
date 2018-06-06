@@ -15,7 +15,7 @@ RSpec.describe BattleBoats::Engine do
                         ally_board: ally_board)
   end
 
-  describe "deploy_ally_ships" do
+  describe "#place_ships_manually" do
     it "walks the user through deploying their ships until all ships are deployed" do
       ship = BattleBoats::Ship.new(name: "foo", length: 1, symbol: "F")
       ships = [ship]
@@ -33,7 +33,7 @@ RSpec.describe BattleBoats::Engine do
       expect(ally_board).to receive(:attempt_to_deploy_ship).with(ship: ship,
                                                                   coordinate: coordinate,
                                                                   orientation: orientation)
-      engine.deploy_ally_ships
+      engine.place_ships_manually
     end
   end
 
