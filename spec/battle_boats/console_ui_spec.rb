@@ -65,23 +65,36 @@ RSpec.describe BattleBoats::ConsoleUI do
   describe "#get_coordinate" do
     context "when the coordinate input is valid" do
       it "returns a coordinate based on user input" do
-        valid_input = "A1"
+        valid_input = "valid"
+        coordinate = BattleBoats::Coordinate.new(row: 0, column: 0)
+        board_formatter = instance_double(BattleBoats::BoardFormatter)
         input = StringIO.new("#{valid_input}\n")
-        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+        console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                                input: input,
+                                                board_formatter: board_formatter)
+
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(valid_input).and_return(true)
+        allow(board_formatter).to receive(:input_to_coordinate).with(valid_input).and_return(coordinate)
 
         result = console_ui.get_coordinate
 
         expect(output.string).to include("coordinate")
-        expect(result.row).to eq(0)
-        expect(result.column).to eq(1)
+        expect(result).to be_instance_of BattleBoats::Coordinate
       end
     end
     context "when the coordinate input is invalid" do
       it "prompts the user again for a coordinate" do
-        invalid_input = "A11"
-        valid_input = "A1"
+        invalid_input = "valid"
+        valid_input = "invalid"
+        board_formatter = instance_double(BattleBoats::BoardFormatter)
         input = StringIO.new("#{invalid_input}\n#{valid_input}")
-        console_ui = BattleBoats::ConsoleUI.new(output: output, input: input)
+        console_ui = BattleBoats::ConsoleUI.new(output: output,
+                                                input: input,
+                                                board_formatter: board_formatter)
+
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(invalid_input).and_return(false)
+        allow(board_formatter).to receive(:valid_coordinate_input?).with(valid_input).and_return(true)
+        allow(board_formatter).to receive(:input_to_coordinate)
 
         console_ui.get_coordinate
 

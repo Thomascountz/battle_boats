@@ -36,6 +36,14 @@ module BattleBoats
       coordinate =~ /^[A-J][0-9]$/i
     end
 
+    def input_to_coordinate(input)
+      input_row = input[0]
+      input_column = input[1]
+      row = row_label_to_row_number(input_row)
+      column = column_label_to_column_number(input_column)
+      BattleBoats::Coordinate.new(row: row, column: column)
+    end
+
     def row_label_to_row_number(row_label)
       row_labels.index(row_label.upcase)
     end

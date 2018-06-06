@@ -117,6 +117,19 @@ RSpec.describe BattleBoats::BoardFormatter do
     end
   end
 
+  describe "#input_to_coordinate" do
+    it "returns a coordinate based on valid input" do
+      input = "A0"
+      expect(board_formatter.valid_coordinate_input?(input)).to be_truthy
+
+      result = board_formatter.input_to_coordinate(input)
+
+      expect(result).to be_instance_of BattleBoats::Coordinate
+      expect(result.row).to eq 0
+      expect(result.column).to eq 0
+    end
+  end
+
   describe "#row_label_to_row_number" do
     it "returns a row number based on row labels" do
       row_label = "A"

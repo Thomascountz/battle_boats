@@ -35,7 +35,7 @@ module BattleBoats
         output.puts "Coordinate invalid."
         user_input = input.gets.chomp
       end
-      input_to_coordinate(user_input)
+      board_formatter.input_to_coordinate(user_input)
     end
 
     def get_orientation
@@ -62,14 +62,6 @@ module BattleBoats
 
     def valid_orientation_input?(orientation)
       orientation =~ /^[h{1}|v{1}]$/i
-    end
-
-    def input_to_coordinate(input)
-      input_row = input[0]
-      input_column = input[1]
-      row = board_formatter.row_label_to_row_number(input_row)
-      column = board_formatter.column_label_to_column_number(input_column)
-      BattleBoats::Coordinate.new(row: row, column: column)
     end
 
     def input_to_orientation(input)
