@@ -3,9 +3,10 @@
 require 'battle_boats/engine'
 require 'battle_boats/board'
 
-board = BattleBoats::Board.new
-board.place_ships_randomly
+enemy_board = BattleBoats::Board.new
+enemy_board.place_ships_randomly
 
-engine = BattleBoats::Engine.new(board: board)
+engine = BattleBoats::Engine.new(enemy_board: enemy_board)
+engine.place_ships_manually
 engine.start
 
