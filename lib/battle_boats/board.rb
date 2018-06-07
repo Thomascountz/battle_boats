@@ -66,6 +66,10 @@ module BattleBoats
       end
     end
 
+    def get_random_coordinate
+      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
+    end
+
     private
 
     def create_play_area
@@ -84,10 +88,6 @@ module BattleBoats
 
     def within_range?(coordinate:)
       coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
-    end
-
-    def get_random_coordinate
-      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
     end
   end
 end

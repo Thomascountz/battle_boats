@@ -161,4 +161,12 @@ RSpec.describe BattleBoats::ConsoleUI do
       expect(output.string).to include("won")
     end
   end
+
+  describe "#lose" do
+    it 'displays a "you lost" message' do
+      console_ui.lose
+
+      expect(output.string).to include("lost")
+    end
+  end
 end

@@ -56,6 +56,10 @@ module BattleBoats
       output.puts "You've won the game!"
     end
 
+    def lose
+      output.puts "You've lost the game!"
+    end
+
     private
 
     attr_reader :output, :input, :board_formatter

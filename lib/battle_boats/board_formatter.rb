@@ -17,7 +17,7 @@ module BattleBoats
           board_string << if cell.occupied? && cell.hit?
                             "  #{cell.occupant.symbol.red}  "
                           elsif cell.occupied? && !hide_ships
-                            "  #{cell.occupant.symbol.yellow}  "
+                            "  #{cell.occupant.symbol.green}  "
                           elsif cell.hit?
                             "  #{'X'.yellow}  "
                           else

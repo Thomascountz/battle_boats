@@ -244,6 +244,15 @@ RSpec.describe BattleBoats::Board do
     end
   end
 
+  describe "#get_random_coordinate" do
+    it "returns a randome coordinate within the board's range" do
+      coordinate = board.get_random_coordinate
+
+      expect(coordinate.row).to be_between(0, 9)
+      expect(coordinate.column).to be_between(0, 9)
+    end
+  end
+
   def sink_ship(ship)
     ship.length.times do
       ship.hit
