@@ -17,7 +17,11 @@ module BattleBoats
     end
 
     def display_board(board)
-      hide_ships = false if BattleBoats::DEVELOPMENT
+      if BattleBoats::DEVELOPMENT
+        hide_ships = false
+      else
+        hide_ships = true
+      end
       output.puts board_formatter.format_board(board, hide_ships: hide_ships)
     end
 
