@@ -1,5 +1,6 @@
 require_relative "coordinate"
 require_relative "board_formatter"
+require_relative "environment"
 
 module BattleBoats
   class ConsoleUI
@@ -16,7 +17,8 @@ module BattleBoats
     end
 
     def display_board(board)
-      output.puts board_formatter.format_board(board, hide_ships: true)
+      hide_ships = !BattleBoats::DEVELOPMENT
+      output.puts board_formatter.format_board(board, hide_ships: hide_ships)
     end
 
     def display_ally_board(board)
