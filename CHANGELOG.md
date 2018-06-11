@@ -1,3 +1,8 @@
+# 0.2.2
+### New Features
+- Replaced -d and --development option flags to enter developer mode
+- Enemy ships are visible in developer mode
+
 # 0.2.1
 ### Enhancements
 - Various enhancements and bug fixes
