@@ -3,11 +3,12 @@ require "battle_boats/fleet"
 
 module BattleBoats
   class Board
-    attr_reader :fleet, :play_area, :status_report
+    attr_reader :fleet, :board_size, :play_area, :status_report
 
     def initialize(fleet: BattleBoats::Fleet.new)
       @fleet = fleet
       @status_report = ""
+      @board_size = 10
       @play_area = create_play_area
     end
 
@@ -67,15 +68,15 @@ module BattleBoats
     end
 
     def get_random_coordinate
-      BattleBoats::Coordinate.random(row: 0..9, column: 0..9)
+      BattleBoats::Coordinate.random(row: 0...board_size, column: 0...board_size)
     end
 
     private
 
     def create_play_area
-      Array.new(10) do
+      Array.new(board_size) do
         row = []
-        10.times do
+        board_size.times do
           row << BattleBoats::Cell.new
         end
         row
@@ -87,7 +88,8 @@ module BattleBoats
     end
 
     def within_range?(coordinate:)
-      coordinate.row.between?(0, 9) && coordinate.column.between?(0, 9)
+      (0...board_size).cover?(coordinate.row) &&
+        (0...board_size).cover?(coordinate.column)
     end
   end
 end
