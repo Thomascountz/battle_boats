@@ -1,3 +1,7 @@
+# 0.2.1
+### Enhancements
+- Various enhancements and bug fixes
+
 # 0.2.0
 ### New Features 
 - After placing your ships, you'll see two boards, yours and the computer player's
