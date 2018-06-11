@@ -3,6 +3,11 @@
 require 'battle_boats/engine'
 require 'battle_boats/board'
 
+if ARGV[0] == "-d" || ARGV[0] == "--development"
+  BattleBoats::DEVELOPMENT = true
+end
+  
+
 enemy_board = BattleBoats::Board.new
 enemy_board.place_ships_randomly
 
